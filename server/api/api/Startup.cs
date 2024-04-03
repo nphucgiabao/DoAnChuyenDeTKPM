@@ -1,4 +1,7 @@
+using api.Customs;
 using api.Identity;
+using api.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,9 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace api
@@ -37,6 +42,13 @@ namespace api
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureAll<AppSettings>(options =>
+            {
+                options.SecretKey = Configuration.GetSection("AppSettings")["SecretKey"];
+            });
+
+            services.AddTransient<IPasswordHasher<AppUser>, CustomPasswordHasher>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -47,6 +59,22 @@ namespace api
                     Version = "v1"
                 });
             });
+
+            var secretKey = Configuration.GetSection("AppSettings")["SecretKey"];
+            var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(option =>
+                {
+                    option.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes)
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +88,8 @@ namespace api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
