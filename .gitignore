@@ -2,6 +2,8 @@
 /server/api/api/obj
 /server/api/IdentityServer/bin
 /server/api/IdentityServer/obj
+/server/api/user_api/bin
+/server/api/user_api/obj
 /client/booking_car_app/booking_car_app/obj
 /client/booking_car_app/booking_car_app/bin
 
