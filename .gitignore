@@ -1,3 +1,8 @@
 /server/api/api/bin
 /server/api/api/obj
+/server/api/IdentityServer/bin
+/server/api/IdentityServer/obj
+/client/booking_car_app/booking_car_app/obj
+/client/booking_car_app/booking_car_app/bin
+
 *.suo
