@@ -78,7 +78,7 @@ namespace IdentityServer
             {
                 app.UseEndpoints(endpoints =>
                 {
-                    endpoints.MapDefaultControllerRoute();
+                    endpoints.MapDefaultControllerRoute();                   
                 });
             });
         }

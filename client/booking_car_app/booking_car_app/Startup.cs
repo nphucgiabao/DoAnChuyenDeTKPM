@@ -1,3 +1,5 @@
+using booking_car_app.ApiServices.User;
+using booking_car_app.HttpHandlers;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,7 +33,24 @@ namespace booking_car_app
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IUserServices, UserServices>();
             
+            services.AddTransient<AuthenticationDelegatingHandler>();            
+
+            services.AddHttpClient("BookingCarAPIClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44318/"); // API GATEWAY URL
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            services.AddHttpClient("IDPClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44342/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            });
+            services.AddHttpContextAccessor();
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -46,17 +66,17 @@ namespace booking_car_app
         options.ResponseType = "code";
 
         //options.GetClaimsFromUserInfoEndpoint = true;
-        //options.Scope.Add("openid");
-        //options.Scope.Add("profile");
-        //options.Scope.Add("booking_car_api");
+        options.Scope.Add("openid");
+        options.Scope.Add("profile");
+        options.Scope.Add("booking_car_api");
         options.SaveTokens = true;
-        //options.GetClaimsFromUserInfoEndpoint = true;
+        options.GetClaimsFromUserInfoEndpoint = true;
 
-        //options.TokenValidationParameters = new TokenValidationParameters
-        //{
-        //    NameClaimType = JwtClaimTypes.GivenName,
-        //    RoleClaimType = JwtClaimTypes.Role
-        //};
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = JwtClaimTypes.GivenName,
+            RoleClaimType = JwtClaimTypes.Role
+        };
     });
             
             //services.AddAuthentication(options =>

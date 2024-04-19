@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,17 +35,17 @@ namespace api
 
             services.AddControllers();
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            //    {
-            //        Title = "Demo",
-            //        Version = "v1"
-            //    });
-            //});
-
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Demo",
+                    Version = "v1"
+                });
+            });
+            var authenticationProviderKey = "IdentityApiKey";
+            services.AddAuthentication()
+            .AddJwtBearer(authenticationProviderKey, options =>
             {
                 options.Authority = "https://localhost:44342";
 
@@ -61,11 +63,12 @@ namespace api
                     policy.RequireClaim("scope", "booking_car_api");
                 });
             });
-
+            var ocelotConfig = new ConfigurationBuilder().AddJsonFile("ocelot.json", optional: true, reloadOnChange: true).Build();
+            services.AddOcelot(ocelotConfig);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -80,16 +83,19 @@ namespace api
 
             app.UseAuthorization();
 
-            //app.UseSwagger();
+            app.UseSwagger();
 
-            //app.UseSwaggerUI(c => {
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoApplication V1");
-            //});
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoApplication V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            await app.UseOcelot();
         }
     }
 }

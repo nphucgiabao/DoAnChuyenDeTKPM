@@ -1,4 +1,5 @@
-﻿using booking_car_app.Models;
+﻿using booking_car_app.ApiServices.User;
+using booking_car_app.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +16,14 @@ namespace booking_car_app.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserServices _userServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserServices userServices)
         {
             _logger = logger;
+            _userServices = userServices;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -30,6 +33,24 @@ namespace booking_car_app.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            var result = await _userServices.ResetPassword("npgbao", model.Password);
+            if (result.Success)
+                return View("Index");
+            return View("Error", new ErrorViewModel { RequestId = result.Message });
+        }
+        
         public IActionResult Logout()
         {
             return SignOut("Cookies", "oidc");
