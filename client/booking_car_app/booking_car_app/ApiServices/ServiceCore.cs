@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace booking_car_app.ApiServices
@@ -84,8 +85,8 @@ namespace booking_car_app.ApiServices
                 var httpClient = _httpClientFactory.CreateClient("BookingCarAPIClient");
 
                 var request = new HttpRequestMessage(HttpMethod.Post, url);
-                request.Content = new StringContent(JsonConvert.SerializeObject(data));
-
+                
+                request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
                 response.EnsureSuccessStatusCode();

@@ -58,14 +58,14 @@ namespace user_api
                 options.User.RequireUniqueEmail = true;               
             });
             services.AddAuthentication("Bearer")
-            .AddIdentityServerAuthentication("Bearer", options =>
+            .AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "https://localhost:44342";
-                options.ApiName = "bookingCarAPI";
-                //options.TokenValidationParameters = new TokenValidationParameters
-                //{
-                //    ValidateAudience = false
-                //};
+                
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
             });
 
             services.AddAuthorization(options =>

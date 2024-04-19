@@ -41,7 +41,7 @@ namespace booking_car_app
             {
                 client.BaseAddress = new Uri("https://localhost:44318/"); // API GATEWAY URL
                 client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");            
             }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient("IDPClient", client =>
