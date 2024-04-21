@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using user_api.Customs;
 using user_api.Identity;
 
 namespace user_api
@@ -31,14 +33,26 @@ namespace user_api
         {
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "https://localhost:44342";
+                options.Audience = "booking_car_api";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
+            });
+
+
+            //services.AddSwaggerGen();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()                    
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
@@ -55,27 +69,18 @@ namespace user_api
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                options.User.RequireUniqueEmail = true;               
-            });
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
-            {
-                options.Authority = "https://localhost:44342";
-                
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false
-                };
+                options.User.RequireUniqueEmail = true;
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "booking_car_api");
-                });
-            });
+            
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ApiScope", policy =>
+            //    {
+            //        policy.RequireAuthenticatedUser();
+            //        policy.RequireClaim("scope", "booking_car_api");
+            //    });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,8 +90,8 @@ namespace user_api
             {
                 app.UseDeveloperExceptionPage();
 
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                //app.UseSwagger();
+                //app.UseSwaggerUI();
 
             }
 

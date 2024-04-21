@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using user_api.Customs;
 using user_api.Identity;
 using user_api.Models;
 
@@ -21,16 +22,17 @@ namespace user_api.Controllers
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(ILogger<UserController> logger, UserManager<ApplicationUser> userManager, 
+        public UserController(ILogger<UserController> logger, UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore)
         {
             _logger = logger;
             _userManager = userManager;
             _userStore = userStore;
-            _emailStore = (IUserEmailStore<ApplicationUser>)_userStore;            
+            _emailStore = (IUserEmailStore<ApplicationUser>)_userStore;
         }
-
+        //
         [HttpGet]
+        [IdentityServerAuthorize]
         public IActionResult GetUsers()
         {
             return Ok(new UserModel { PhoneNumber = "123456" });
@@ -44,7 +46,7 @@ namespace user_api.Controllers
             if (ModelState.IsValid)
             {
                 var newUser = Activator.CreateInstance<ApplicationUser>();
-                newUser.FullName = model.FullName;          
+                newUser.FullName = model.FullName;
                 newUser.PhoneNumber = model.PhoneNumber;
                 await _userStore.SetUserNameAsync(newUser, model.PhoneNumber, CancellationToken.None);
                 await _emailStore.SetEmailAsync(newUser, model.Email, CancellationToken.None);
@@ -58,9 +60,9 @@ namespace user_api.Controllers
             }
             return BadRequest(new ResponseModel { Success = false, Message = AppMessage.Save.Error });
         }
-        [Authorize]
+        [IdentityServerAuthorize]
         [HttpPost]
-        //[Route("ResetPassword")]        
+        //[Route("ResetPassword")]
         public async Task<IActionResult> ResetPassword([FromBody] UserModel model)
         {
             var user = await _userManager.FindByNameAsync(model.PhoneNumber);
