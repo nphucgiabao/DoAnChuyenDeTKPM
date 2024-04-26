@@ -1,0 +1,39 @@
+﻿@model booking_car_app.Models.RegisterViewModel
+
+<form asp-route="Register" method="post" asp-antiforgery="true">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Đăng ký</h2>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" asp-for="Role" value="User"/>
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <input class="form-control" asp-for="FullName" autofocus>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input class="form-control" asp-for="PhoneNumber" autofocus>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input class="form-control" asp-for="Password" autofocus>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <button class="btn btn-primary" name="button" value="login">Tạo tài khoản</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")    
+}
+

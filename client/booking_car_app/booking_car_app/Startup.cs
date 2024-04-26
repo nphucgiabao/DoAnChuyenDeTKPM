@@ -39,7 +39,7 @@ namespace booking_car_app
 
             services.AddHttpClient("BookingCarAPIClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44318/"); // API GATEWAY URL
+                client.BaseAddress = new Uri("https://localhost:44308/"); // API GATEWAY URL
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");            
             }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
@@ -78,6 +78,7 @@ namespace booking_car_app
             RoleClaimType = JwtClaimTypes.Role
         };
     });
+            services.AddAutoMapper(typeof(Startup));
             
             //services.AddAuthentication(options =>
             //{

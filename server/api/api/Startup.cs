@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,16 +34,16 @@ namespace api
         {
             
 
-            services.AddControllers();
+            //services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Title = "Demo",
-                    Version = "v1"
-                });
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            //    {
+            //        Title = "Demo",
+            //        Version = "v1"
+            //    });
+            //});
             var authenticationProviderKey = "IdentityApiKey";
             services.AddAuthentication()
             .AddJwtBearer(authenticationProviderKey, options =>
@@ -55,47 +56,38 @@ namespace api
                 };
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "booking_car_api");
-                });
-            });
-            var ocelotConfig = new ConfigurationBuilder().AddJsonFile("ocelot.json", optional: true, reloadOnChange: true).Build();
-            services.AddOcelot(ocelotConfig);
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ApiScope", policy =>
+            //    {
+            //        policy.RequireAuthenticatedUser();
+            //        policy.RequireClaim("scope", "booking_car_api");
+            //    });
+            //});
+            //var ocelotConfig = new ConfigurationBuilder().AddJsonFile("ocelot.json", optional: true, reloadOnChange: true).Build();
+            services.AddOcelot();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }          
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoApplication V1");
-            });
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
 
-            await app.UseOcelot();
+            app.UseOcelot().Wait();
         }
     }
 }

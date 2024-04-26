@@ -1,4 +1,6 @@
-﻿using booking_car_app.ApiServices.User;
+﻿using AutoMapper;
+using booking_car_app.ApiServices.User;
+using booking_car_app.Entities;
 using booking_car_app.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -17,11 +19,12 @@ namespace booking_car_app.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserServices _userServices;
-
-        public HomeController(ILogger<HomeController> logger, IUserServices userServices)
+        private readonly IMapper _mapper;
+        public HomeController(ILogger<HomeController> logger, IUserServices userServices, IMapper mapper)
         {
             _logger = logger;
             _userServices = userServices;
+            _mapper = mapper;
         }
         [Authorize]
         public IActionResult Index()
@@ -33,6 +36,28 @@ namespace booking_car_app.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegisterViewModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            try
+            {
+                var user = _mapper.Map<Entities.User>(model);
+                var result = await _userServices.Register(user);
+                if (result.Success)
+                    return RedirectToAction("Index");
+                return View("Error", new ErrorViewModel { RequestId = result.Message });
+            }
+            catch(Exception ex)
+            {
+                return View("Error", new ErrorViewModel { RequestId = ex.ToString() });
+            }
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult ChangePassword()

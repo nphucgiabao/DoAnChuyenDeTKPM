@@ -45,20 +45,28 @@ namespace user_api.Controllers
 
             if (ModelState.IsValid)
             {
-                var newUser = Activator.CreateInstance<ApplicationUser>();
-                newUser.FullName = model.FullName;
-                newUser.PhoneNumber = model.PhoneNumber;
-                await _userStore.SetUserNameAsync(newUser, model.PhoneNumber, CancellationToken.None);
-                await _emailStore.SetEmailAsync(newUser, model.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(newUser, model.Password);
-                if (result.Succeeded)
+                try
                 {
-                    await _userManager.AddToRoleAsync(newUser, model.Role);
-                    _logger.LogInformation("User created a new account with password.");
-                    return Ok(new ResponseModel { Success = true, Message = AppMessage.Save.Success });
+                    var newUser = Activator.CreateInstance<ApplicationUser>();
+                    newUser.FullName = model.FullName;
+                    newUser.PhoneNumber = model.PhoneNumber;
+                    await _userStore.SetUserNameAsync(newUser, model.PhoneNumber, CancellationToken.None);
+                    //await _emailStore.SetEmailAsync(newUser, model.Email, CancellationToken.None);
+                    var result = await _userManager.CreateAsync(newUser, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(newUser, model.Role);
+                        _logger.LogInformation("User created a new account with password.");
+                        return Ok(new ResponseModel { Success = true, Message = AppMessage.Save.Success });
+                    }
                 }
+                catch(Exception ex)
+                {
+                    return BadRequest(new ResponseModel { Success = false, Message = ex.ToString() });
+                }
+               
             }
-            return BadRequest(new ResponseModel { Success = false, Message = AppMessage.Save.Error });
+            return BadRequest(new ResponseModel { Success = false, Message = string.Join("; ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)) });
         }
         [IdentityServerAuthorize]
         [HttpPost]

@@ -37,7 +37,7 @@ namespace user_api
             .AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "https://localhost:44342";
-                options.Audience = "booking_car_api";
+                options.Audience = "booking_car_api";         
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false
@@ -69,7 +69,7 @@ namespace user_api
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                options.User.RequireUniqueEmail = true;
+                //options.User.RequireUniqueEmail = true;
             });
 
             

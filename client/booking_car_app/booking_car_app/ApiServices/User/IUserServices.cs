@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace booking_car_app.ApiServices.User
 {
-    public interface IUserServices : IService<Entities.User, string>
+    public interface IUserServices
     {
         Task<ResponseModel> ResetPassword(string phone, string password);
+        Task<ResponseModel> Register(Entities.User entity);
     }
 }
