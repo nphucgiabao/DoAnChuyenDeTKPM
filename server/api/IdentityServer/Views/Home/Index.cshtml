@@ -4,14 +4,25 @@
     var version = FileVersionInfo.GetVersionInfo(typeof(IdentityServer4.Hosting.IdentityServerMiddleware).Assembly.Location).ProductVersion.Split('+').First();
 }
 
-<div class="welcome-page">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-header">
-                <h2> Welcome to E Booking Car</h2>
-            </div>
-            
+<div class="welcome-page text-center">
+
+    <h2> Welcome to E Booking Car</h2>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-sm-3">
+            <a class="btn btn-outline-primary btn-on-welcome" href="/Account/Login">Login</a>
         </div>
+        <div class="col-sm-3">
+            <a class="btn btn-outline-primary btn-on-welcome" href="/Account/Register">Register</a>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-sm-6">
+            <img src="~/background1.jpg" />
+        </div>
+        <div class="col"></div>
     </div>
 </div>
 

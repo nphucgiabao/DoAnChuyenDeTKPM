@@ -24,9 +24,9 @@ namespace booking_car_app.Controllers
             _userServices = userServices;
         }
         [Authorize]
-        public IActionResult BookingViewModel()
+        public IActionResult Booking()
         {
-            return BookingViewModel();
+            return View();
         }
         [Authorize]
         public IActionResult Index()
