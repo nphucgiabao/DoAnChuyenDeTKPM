@@ -34,14 +34,14 @@ namespace booking_car_app
         {
             services.AddControllersWithViews();
             services.AddScoped<IUserServices, UserServices>();
-            
-            services.AddTransient<AuthenticationDelegatingHandler>();            
+
+            services.AddTransient<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient("BookingCarAPIClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44318/"); // API GATEWAY URL
                 client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");            
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient("IDPClient", client =>
@@ -78,7 +78,7 @@ namespace booking_car_app
             RoleClaimType = JwtClaimTypes.Role
         };
     });
-            
+
             //services.AddAuthentication(options =>
             //{
             //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -146,7 +146,7 @@ namespace booking_car_app
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-         
+
         }
     }
 }

@@ -24,6 +24,11 @@ namespace booking_car_app.Controllers
             _userServices = userServices;
         }
         [Authorize]
+        public IActionResult BookingViewModel()
+        {
+            return BookingViewModel();
+        }
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -43,6 +48,7 @@ namespace booking_car_app.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             var result = await _userServices.ResetPassword("npgbao", model.Password);
