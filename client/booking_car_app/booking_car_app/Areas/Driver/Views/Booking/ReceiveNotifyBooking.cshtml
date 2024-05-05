@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Driver";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Xin Chào</h1>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
+</div>
+<div class="row">
+    <div id="notifyBooking" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="alert alert-primary">
+            <label>Điểm đón: </label>
+            <label>Điểm đến: </label>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/driver/receiveNotifyBooking.js" asp-append-version="true"></script>
+}

@@ -1,3 +1,4 @@
+using booking_car_app.ApiServices.Booking;
 using booking_car_app.ApiServices.User;
 using booking_car_app.HttpHandlers;
 using IdentityModel;
@@ -34,6 +35,7 @@ namespace booking_car_app
         {
             services.AddControllersWithViews();
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IBookingService, BookingService>();
             
             services.AddTransient<AuthenticationDelegatingHandler>();            
 

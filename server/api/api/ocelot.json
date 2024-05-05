@@ -42,6 +42,21 @@
       "UpstreamPathTemplate": "/user/register",
       "UpstreamHttpMethod": [ "POST" ]
 
+    },
+    {
+      "DownstreamPathTemplate": "/api/Booking/FindDriver",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "44312"
+        }
+      ],
+      "UpstreamPathTemplate": "/user/booking",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey"
+      }
     }
   ],
   "GlobalConfiguration": {

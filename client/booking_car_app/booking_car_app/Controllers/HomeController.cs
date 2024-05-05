@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using booking_car_app.ApiServices.Booking;
 using booking_car_app.ApiServices.User;
 using booking_car_app.Entities;
 using booking_car_app.Models;
@@ -19,17 +20,19 @@ namespace booking_car_app.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserServices _userServices;
+        private readonly IBookingService _bookingServices;
         private readonly IMapper _mapper;
-        public HomeController(ILogger<HomeController> logger, IUserServices userServices, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IUserServices userServices, IBookingService bookingService, IMapper mapper)
         {
             _logger = logger;
             _userServices = userServices;
+            _bookingServices = bookingService;
             _mapper = mapper;
         }
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return View(new BookingInfo());
         }
         [Authorize]
         public IActionResult Privacy()
@@ -74,6 +77,15 @@ namespace booking_car_app.Controllers
             if (result.Success)
                 return View("Index");
             return View("Error", new ErrorViewModel { RequestId = result.Message });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> Booking(BookingInfo bookingInfo)
+        {
+            var result = await _bookingServices.FindDriver(bookingInfo);
+            return View();
         }
         
         public IActionResult Logout()

@@ -1,9 +1,25 @@
-﻿@{
+﻿@model booking_car_app.Entities.BookingInfo
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>
+    <h1 class="display-4">Xin Chào</h1>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form asp-controller="Home" asp-action="Booking" method="post" asp-antiforgery="true">
+            <div class="form-group">
+                <label asp-for="DiemDon" class="col-form-label">Điểm đón</label>
+                <input asp-for="DiemDon" class="form-control w-100" placeholder="Tìm địa điểm..." />
+            </div>
+            <div class="form-group">
+                <label asp-for="DiemDen" class="col-form-label">Điểm đến</label>
+                <input asp-for="DiemDen" class="form-control w-100" placeholder="Tìm địa điểm..." />
+            </div>
+            <button type="submit" class="btn btn-primary">Đặt chuyến</button>
+        </form>
+    </div>
 </div>
