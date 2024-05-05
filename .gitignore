@@ -4,6 +4,12 @@
 /server/api/IdentityServer/obj
 /server/api/user_api/bin
 /server/api/user_api/obj
+/server/api/booking_api/bin
+/server/api/booking_api/obj
+/server/api/driver_api/bin
+/server/api/driver_api/obj
+/server/api/MessageQueue/bin
+/server/api/MessageQueue/obj
 /client/booking_car_app/booking_car_app/obj
 /client/booking_car_app/booking_car_app/bin
 
