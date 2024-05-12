@@ -9,13 +9,22 @@ namespace driver_api.Hubs
 {
     public class BroadcastHub : Hub
     {
-        public void Broadcast()
+        private string data;
+        public async Task BroadcastBooking()
         {
-            RabbitMQSubcriber rabbitMQSubcriber = new RabbitMQSubcriber("booking", async (data) =>
+            //Action<string> action = async (value) =>
+            //{
+            //    await Clients.All.SendAsync("ReceiveBooking", "booking");
+            //};
+            //var data = string.Empty;
+            RabbitMQSubcriber rabbitMQSubcriber = new RabbitMQSubcriber("booking", async (value) =>
             {
-                await Clients.All.SendAsync("ReceiveBooking", data);
+                await Clients.All.SendAsync("ReceiveBooking", value);
             });
-            //await Clients.All.SendAsync("ReceiveMessage", user, message);
+            rabbitMQSubcriber.ProcessQueue();
+
+            //await Clients.All.SendAsync("ReceiveInfo", "hello");
         }
+
     }
 }

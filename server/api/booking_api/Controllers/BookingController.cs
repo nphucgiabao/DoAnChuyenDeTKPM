@@ -1,7 +1,9 @@
 ﻿using booking_api.Entities;
-using MessageQueue.Engines.RabbitMQ;
+using booking_api.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,19 @@ namespace booking_api.Controllers
     [Route("api/[controller]/[action]")]
     public class BookingController : ControllerBase
     {
+        private readonly IHubContext<BroadcastHub> _broadcastHub;
+        public BookingController(IHubContext<BroadcastHub> broadcastHub)
+        {
+            _broadcastHub = broadcastHub;
+        }        
         [HttpPost]
         public async Task<IActionResult> FindDriver([FromBody] BookingInfo info)
         {
-            RabbitMQPublisher<BookingInfo> rabbitMQPublisher = new RabbitMQPublisher<BookingInfo>("booking");
-            await rabbitMQPublisher.SendMessage(info);
+            //RabbitMQPublisher<BookingInfo> rabbitMQPublisher = new RabbitMQPublisher<BookingInfo>("booking");
+            //rabbitMQPublisher.SendMessage(info).Start();
+            var data = JsonConvert.SerializeObject(info);
+            await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", data);
+            
             return Ok();
         }
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace booking_car_app.Areas.Driver.Controllers
 {
+    [Area("Driver")]
     [Authorize]
     public class BookingController : Controller
     {

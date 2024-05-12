@@ -9,12 +9,15 @@
 </div>
 <div class="row">
     <div id="notifyBooking" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="alert alert-primary">
+        @*<div class="alert alert-primary">
             <label>Điểm đón: </label>
             <label>Điểm đến: </label>
-        </div>
+        </div>*@
     </div>
+    <button onclick="test()" class="btn btn-primary">Click</button>
 </div>
 @section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/driver/receiveNotifyBooking.js" asp-append-version="true"></script>
 }

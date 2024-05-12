@@ -28,7 +28,7 @@ namespace MessageQueue.Engines.RabbitMQ
                 _channel.ExchangeDeclare(exchange: _exchangeName, type: ExchangeType.Fanout, durable: false);
             }
         }
-        public async Task SendMessage(T message)
+        public Task SendMessage(T message)
         {
             var task = new Task(() =>
             {
@@ -40,8 +40,8 @@ namespace MessageQueue.Engines.RabbitMQ
                                      basicProperties: null,
                                      body: body);
             });
-            task.Start();
-            await task;           
+            
+            return task;           
         }
     }
 }

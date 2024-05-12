@@ -35,8 +35,9 @@ namespace booking_car_app.Controllers
             return View(new BookingInfo());
         }
         [Authorize]
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
+            var result = await _userServices.GetUsers();
             return View();
         }
         [HttpGet]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,6 +39,19 @@ namespace driver_api
                    ValidateAudience = false
                };
            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44360") // Add your client origin
+                               .AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowCredentials();
+                    });
+            });
+
             services.AddSignalR();
         }
 
@@ -53,7 +67,16 @@ namespace driver_api
 
             app.UseRouting();
 
+            app.UseCors("AllowSpecificOrigin");
+
             //app.MapHub<BroadcastHub>("/");
+
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<BroadcastHub>("/broadcastHub");
+            });
+
 
             app.UseAuthentication();
 

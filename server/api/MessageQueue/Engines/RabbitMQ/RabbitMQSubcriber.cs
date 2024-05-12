@@ -17,7 +17,7 @@ namespace MessageQueue.Engines.RabbitMQ
         public RabbitMQSubcriber(string exchangeName, Action<string> handle)
         {
             _exchangeName = exchangeName;
-            _handler = handle;
+             _handler = handle;
             InitializeQueue();
         }
         private void InitializeQueue()
@@ -30,29 +30,30 @@ namespace MessageQueue.Engines.RabbitMQ
                 _channel.ExchangeDeclare(exchange: _exchangeName, type: ExchangeType.Fanout, durable: false);
             }
         }
-        public async Task ProcessQueue()
+        public void ProcessQueue()
         {
-            var task = new Task(() =>
+            //var task = new Task(() =>
+            //{
+
+            //});
+
+            //task.Start();
+            //await task;           
+            var queueName = _channel.QueueDeclare().QueueName;
+            _channel.QueueBind(queue: queueName,
+                              exchange: _exchangeName,
+                              routingKey: string.Empty);
+
+            var consumer = new EventingBasicConsumer(_channel);
+            consumer.Received += (model, ea) =>
             {
-                var queueName = _channel.QueueDeclare().QueueName;
-                _channel.QueueBind(queue: queueName,
-                                  exchange: _exchangeName,
-                                  routingKey: string.Empty);
-
-                var consumer = new EventingBasicConsumer(_channel);
-                consumer.Received += (model, ea) =>
-                {
-                    byte[] body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    _handler(message);
-                };
-                _channel.BasicConsume(queue: queueName,
-                                     autoAck: true,
-                                     consumer: consumer);
-            });
-
-            task.Start();
-            await task;           
+                byte[] body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                _handler(message);
+            };
+            _channel.BasicConsume(queue: queueName,
+                                 autoAck: true,
+                                 consumer: consumer);
         }
     }
 }

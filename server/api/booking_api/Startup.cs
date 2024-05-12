@@ -1,3 +1,4 @@
+using booking_api.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,19 @@ namespace booking_api
                };
            });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44360") // Add your client origin
+                               .AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowCredentials();
+                    });
+            });
+           
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +69,15 @@ namespace booking_api
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowSpecificOrigin");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<BroadcastHub>("/broadcastHub");
+            });
+
+           
 
             app.UseEndpoints(endpoints =>
             {

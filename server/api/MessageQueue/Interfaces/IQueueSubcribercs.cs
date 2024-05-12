@@ -7,6 +7,6 @@ namespace MessageQueue.Interfaces
 {
     public interface IQueueSubcribercs
     {
-        Task ProcessQueue();
+        void ProcessQueue();
     }
 }

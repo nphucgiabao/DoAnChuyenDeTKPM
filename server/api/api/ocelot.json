@@ -55,7 +55,8 @@
       "UpstreamPathTemplate": "/user/booking",
       "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "IdentityApiKey"
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
       }
     }
   ],

@@ -12,7 +12,12 @@ namespace booking_car_app.ApiServices.User
     {
         public UserServices(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor) : 
             base(httpClientFactory, httpContextAccessor) {}
-       
+
+        public async Task<ResponseModel> GetUsers()
+        {
+            return await GetRequest("/user/getall");
+        }
+
         public async Task<ResponseModel> Register(Entities.User entity)
         {
             return await PostRequest<Entities.User>("/user/register", entity);
