@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace booking_api.Data
+namespace booking_api.Infrastructure.Repository.Entities
 {
     public partial class TypeCar
     {

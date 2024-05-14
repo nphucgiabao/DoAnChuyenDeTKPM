@@ -1,5 +1,6 @@
-using booking_api.Data;
 using booking_api.Hubs;
+using booking_api.Infrastructure.Repository;
+using booking_api.Infrastructure.Repository.Repositories.Bookings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,10 +32,9 @@ namespace booking_api
         {
             services.AddControllers();
 
-            services.AddDbContext<car_bookingContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            services.AddDbContext<car_bookingContext>();
+
+            services.AddScoped<IBookingRepository, BookingRepository>();
 
             services.AddAuthentication("Bearer")
            .AddJwtBearer("Bearer", options =>

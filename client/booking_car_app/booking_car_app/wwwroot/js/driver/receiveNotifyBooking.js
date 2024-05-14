@@ -7,7 +7,7 @@ connection.start().then(function () {
     //document.getElementById("sendButton").disabled = false;
     connection.invoke("BroadcastBooking").catch(function (err) {
         return console.log(err.toString());
-    });
+    });00
     console.log('start');
     
 }).catch(function (err) {
