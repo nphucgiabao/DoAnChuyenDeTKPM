@@ -1,4 +1,5 @@
 //using AutoMapper.Configuration;
+using IdentityServer.Customs;
 using IdentityServer.Data;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -55,7 +56,7 @@ namespace IdentityServer
                 {
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
                     sql => sql.MigrationsAssembly(migrationsAssembly));
-                });
+                }).AddProfileService<CustomProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 using booking_car_app.ApiServices.Booking;
 using booking_car_app.ApiServices.User;
 using booking_car_app.HttpHandlers;
+using booking_car_app.Middlewares;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -51,7 +52,7 @@ namespace booking_car_app
                 client.BaseAddress = new Uri("https://localhost:44342/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            });
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
             services.AddHttpContextAccessor();
             services.AddAuthentication(options =>
             {
@@ -142,6 +143,8 @@ namespace booking_car_app
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<UserMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

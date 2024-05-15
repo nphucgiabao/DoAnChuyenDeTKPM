@@ -10,6 +10,6 @@ namespace booking_car_app.ApiServices.User
     {
         Task<ResponseModel> ResetPassword(string phone, string password);
         Task<ResponseModel> Register(Entities.User entity);
-        Task<ResponseModel> GetUsers();
+        //Task<ResponseModel> GetUser();
     }
 }

@@ -32,12 +32,17 @@ namespace booking_car_app.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View(new BookingInfo());
+            ViewBag.Name = User.Identity.Name;
+            
+            return View(new BookingInfo() { 
+                UserId = User.FindFirst("Id")?.Value, 
+                Name = User.Identity.Name, 
+                Phone = User.FindFirst("UserName")?.Value });
         }
         [Authorize]
         public async Task<IActionResult> Privacy()
         {
-            var result = await _userServices.GetUsers();
+            //var result = await _userServices.GetUser();
             return View();
         }
         [HttpGet]

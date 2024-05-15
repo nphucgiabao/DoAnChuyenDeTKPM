@@ -9,5 +9,8 @@ namespace booking_api.Entities
     {
         public string DiemDon { get; set; }
         public string DiemDen { get; set; }
+        public string UserId { get; set; }
+        public string Phone { get; set; }
+        public string Name { get; set; }
     }
 }

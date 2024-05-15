@@ -13,7 +13,7 @@ namespace booking_car_app.ApiServices
 {
     public abstract class ServiceCore
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        protected readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ServiceCore(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)

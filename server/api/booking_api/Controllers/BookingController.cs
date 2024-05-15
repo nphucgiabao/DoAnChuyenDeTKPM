@@ -33,6 +33,9 @@ namespace booking_api.Controllers
             var data = JsonConvert.SerializeObject(info);
             var booking = new Booking();
             booking.Id = Guid.NewGuid();
+            booking.UserId = info.UserId;
+            booking.Name = info.Name;
+            booking.Phone = info.Phone;
             booking.DiemDon = info.DiemDon;
             booking.DiemDen = info.DiemDen;
             booking.NgayTao = DateTime.Now;

@@ -4,13 +4,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Xin Chào</h1>
+    <h1 class="display-4">Xin Chào @ViewBag.Name</h1>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
 </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <form asp-controller="Home" asp-action="Booking" method="post" asp-antiforgery="true">
+            <input asp-for="UserId" type="hidden"/> 
+            <input asp-for="Phone" type="hidden"/> 
+            <input asp-for="Name" type="hidden"/> 
             <div class="form-group">
                 <label asp-for="DiemDon" class="col-form-label">Điểm đón</label>
                 <input asp-for="DiemDon" class="form-control w-100" placeholder="Tìm địa điểm..." />
