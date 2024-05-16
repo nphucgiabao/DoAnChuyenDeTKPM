@@ -129,6 +129,7 @@ namespace booking_api.Infrastructure.Repository.Repositories
         {
             _dbSet.Attach(entityToUpdate);
             _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
+
         }
         public void Delete(TEntity entityToDelete)
         {
