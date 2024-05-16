@@ -45,5 +45,15 @@ namespace booking_api.Controllers
             
             return Ok();
         }
+        [HttpPost]
+        public IActionResult ReceiveBooking(Guid idBooking, string idDriver)
+        {
+            var booking = new Booking();
+            booking.Id = idBooking;
+            booking.DriverId = idDriver;           
+            booking.Status = 2;
+            _bookingRepository.Update(booking);
+            return Ok();
+        }
     }
 }

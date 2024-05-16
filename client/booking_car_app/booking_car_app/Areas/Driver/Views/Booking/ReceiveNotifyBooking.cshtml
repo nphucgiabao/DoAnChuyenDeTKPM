@@ -3,18 +3,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Xin Chào</h1>
+    <h1 class="display-4">Xin Chào @ViewBag.Name</h1>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
         <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
 </div>
-<div class="row">
-    <div id="notifyBooking" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        @*<div class="alert alert-primary">
+<div class="row" id="notifyBooking">
+    @*<div  class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="alert alert-primary">
             <label>Điểm đón: </label>
             <label>Điểm đến: </label>
-        </div>*@
-    </div>
-    <button onclick="test()" class="btn btn-primary">Click</button>
+        </div>
+    </div>*@
+    @*<button onclick="test()" class="btn btn-primary">Click</button>*@
 </div>
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

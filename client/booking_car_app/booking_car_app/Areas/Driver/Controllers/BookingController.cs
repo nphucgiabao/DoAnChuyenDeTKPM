@@ -13,6 +13,7 @@ namespace booking_car_app.Areas.Driver.Controllers
     {
         public IActionResult ReceiveNotifyBooking()
         {
+            ViewBag.Name = User.Identity.Name;
             return View();
         }
     }
