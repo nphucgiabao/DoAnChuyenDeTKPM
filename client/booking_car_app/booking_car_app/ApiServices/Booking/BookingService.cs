@@ -17,5 +17,10 @@ namespace booking_car_app.ApiServices.Booking
         {
             return await PostRequest<BookingInfo>("/user/booking", bookingInfo);
         }
+
+        public async Task<ResponseModel> ReceiveBooking(BookingInfo bookingInfo)
+        {
+            return await PostRequest<BookingInfo>("/user/receivebooking", bookingInfo);
+        }
     }
 }

@@ -125,19 +125,21 @@ namespace booking_api.Infrastructure.Repository.Repositories
             _dbSet.AddRange(entity);
             return _dbContext.SaveChanges() > 0;
         }
-        public void Update(TEntity entityToUpdate)
+        public bool Update(TEntity entityToUpdate)
         {
             _dbSet.Attach(entityToUpdate);
             _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
+            return _dbContext.SaveChanges() > 0;
 
         }
-        public void Delete(TEntity entityToDelete)
+        public bool Delete(TEntity entityToDelete)
         {
             if (_dbContext.Entry(entityToDelete).State == EntityState.Detached)
             {
                 _dbSet.Attach(entityToDelete);
             }
             _dbSet.Remove(entityToDelete);
+            return _dbContext.SaveChanges() > 0;
         }
     }
 }

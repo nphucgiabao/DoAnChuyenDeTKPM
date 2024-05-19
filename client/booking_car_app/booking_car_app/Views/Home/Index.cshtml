@@ -6,14 +6,14 @@
 <div class="text-center">
     <h1 class="display-4">Xin Chào @ViewBag.Name</h1>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
+        <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
 </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <form asp-controller="Home" asp-action="Booking" method="post" asp-antiforgery="true">
-            <input asp-for="UserId" type="hidden"/> 
-            <input asp-for="Phone" type="hidden"/> 
-            <input asp-for="Name" type="hidden"/> 
+        <form method="post" asp-antiforgery="true">
+            <input asp-for="UserId" type="hidden" />
+            <input asp-for="Phone" type="hidden" />
+            <input asp-for="Name" type="hidden" />
             <div class="form-group">
                 <label asp-for="DiemDon" class="col-form-label">Điểm đón</label>
                 <input asp-for="DiemDon" class="form-control w-100" placeholder="Tìm địa điểm..." />
@@ -24,5 +24,45 @@
             </div>
             <button type="submit" class="btn btn-primary">Đặt chuyến</button>
         </form>
+        <button id="btnChat" data-toggle="modal" data-target="#chatbox" style="display:none;" class="btn btn-primary">Chat với tài xế</button>
     </div>
 </div>
+<div id="modal-placeholder">
+    <div class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">                
+                <div class="modal-body text-center">
+                    <img src="~/img/loading.gif" class="w-50"/>
+                    <h3>Đang tìm tài xế</h3> 
+                </div>                
+            </div>
+        </div>
+        </div>
+    </div>
+<div id="chatbox" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">Chat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="chatmessage">
+                </ul>
+                <input id="chat" class="form-control" /><button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+        @section Scripts{
+
+            <partial name="_ValidationScriptsPartial" />            
+            <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+            <script src="~/js/common.js" asp-append-version="true"></script>
+            <script src="~/js/home.index.js" asp-append-version="true"></script>
+        }

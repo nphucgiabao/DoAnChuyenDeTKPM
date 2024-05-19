@@ -2,6 +2,7 @@
 using booking_api.Hubs;
 using booking_api.Infrastructure.Repository.Entities;
 using booking_api.Infrastructure.Repository.Repositories.Bookings;
+using booking_api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -29,8 +30,7 @@ namespace booking_api.Controllers
         public async Task<IActionResult> FindDriver([FromBody] BookingInfo info)
         {
             //RabbitMQPublisher<BookingInfo> rabbitMQPublisher = new RabbitMQPublisher<BookingInfo>("booking");
-            //rabbitMQPublisher.SendMessage(info).Start();
-            var data = JsonConvert.SerializeObject(info);
+            //rabbitMQPublisher.SendMessage(info).Start();            
             var booking = new Booking();
             booking.Id = Guid.NewGuid();
             booking.UserId = info.UserId;
@@ -40,20 +40,23 @@ namespace booking_api.Controllers
             booking.DiemDen = info.DiemDen;
             booking.NgayTao = DateTime.Now;
             booking.Status = 1;
-            _bookingRepository.Insert(booking);
-            await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", data);
+            var result = _bookingRepository.Insert(booking);
+            if (result)
+                await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", JsonConvert.SerializeObject(booking));
             
-            return Ok();
+            return Ok(new ResponseModel() { Success = result, Data = booking });
         }
         [HttpPost]
-        public IActionResult ReceiveBooking(Guid idBooking, string idDriver)
+        public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)
         {
-            var booking = new Booking();
-            booking.Id = idBooking;
-            booking.DriverId = idDriver;           
+            var booking = await _bookingRepository.GetAsync(x => x.Id == info.Id);
+            booking.Id = info.Id.Value;
+            booking.DriverId = info.DriverId;           
             booking.Status = 2;
-            _bookingRepository.Update(booking);
-            return Ok();
+            var result = _bookingRepository.Update(booking);
+            if(result)
+                await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", JsonConvert.SerializeObject(booking));
+            return Ok(new ResponseModel() { Success = result });
         }
     }
 }

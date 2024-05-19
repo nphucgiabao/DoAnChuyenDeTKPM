@@ -21,12 +21,25 @@ namespace booking_api.Hubs
             var cnId = Context.ConnectionId;
             var listBooking = await _bookingRepository.GetAllAsync(x => x.Status == 1);
             await Clients.Client(cnId).SendAsync("ListBooking", 
-                JsonConvert.SerializeObject(listBooking.Select(x=>new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone })));
+                JsonConvert.SerializeObject(listBooking.Select(x=>new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone }).ToList()));
         }
-
-        public async Task RefreshBroadcastBooking()
+        public async Task RefreshBroadcast()
         {
-            await Clients.All.SendAsync("ListBooking", "refresh");
+            var listBooking = await _bookingRepository.GetAllAsync(x => x.Status == 1);
+            await Clients.All.SendAsync("ListBooking",
+                JsonConvert.SerializeObject(listBooking.Select(x => new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone }).ToList()));
+        }
+        //public async Task ReceiveBooking(string id)
+        //{
+        //    await Clients.Group(id).SendAsync("ReceiveBooking", "Tài xế đã nhận chuyến!");
+        //}
+        public async Task JoinRoom(string id)
+        {            
+            await Groups.AddToGroupAsync(Context.ConnectionId, id);
+        }
+        public async Task SendMessageToRoom(string roomName, string content)
+        {
+            await Clients.Group(roomName).SendAsync("ReceiveMessage", content);
         }
     }
 }

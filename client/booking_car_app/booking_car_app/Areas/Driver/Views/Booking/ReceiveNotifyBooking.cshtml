@@ -1,23 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Driver";
 }
-
 <div class="text-center">
     <h1 class="display-4">Xin Chào @ViewBag.Name</h1>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
         <a href="/Home/ChangePassword" class="btn btn-success">Change Password</a>*@
 </div>
-<div class="row" id="notifyBooking">
-    @*<div  class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="alert alert-primary">
-            <label>Điểm đón: </label>
-            <label>Điểm đến: </label>
-        </div>
-    </div>*@
-    @*<button onclick="test()" class="btn btn-primary">Click</button>*@
-</div>
+<form id="frm" asp-antiforgery="true" onsubmit="return false">
+    <div class="row" id="notifyBooking">
+        @*<div  class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="alert alert-primary">
+                    <label>Điểm đón: </label>
+                    <label>Điểm đến: </label>
+                </div>
+            </div>*@
+        @*<button onclick="test()" class="btn btn-primary">Click</button>*@
+    </div>
+</form>
+
+
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/common.js" asp-append-version="true"></script>
     <script src="~/js/driver/receiveNotifyBooking.js" asp-append-version="true"></script>
 }

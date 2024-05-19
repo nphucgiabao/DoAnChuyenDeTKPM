@@ -30,7 +30,7 @@ namespace booking_api.Infrastructure.Repository.Repositories.Bookings
        
         bool Insert(TEntity entity);
         bool InsertMultiple(List<TEntity> entities);
-        void Delete(TEntity entityToDelete);
-        void Update(TEntity entityToUpdate);
+        bool Delete(TEntity entityToDelete);
+        bool Update(TEntity entityToUpdate);
     }
 }

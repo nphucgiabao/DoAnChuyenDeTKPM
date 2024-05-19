@@ -82,7 +82,7 @@ namespace booking_car_app
         };
     });
             services.AddAutoMapper(typeof(Startup));
-            
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
             //services.AddAuthentication(options =>
             //{
             //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using booking_car_app.ApiServices.Booking;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,35 @@ namespace booking_car_app.Areas.Driver.Controllers
     [Authorize]
     public class BookingController : Controller
     {
+        private readonly IBookingService _bookingServices;
+        public BookingController(IBookingService bookingService)
+        {
+            _bookingServices = bookingService;
+        }
+
         public IActionResult ReceiveNotifyBooking()
         {
             ViewBag.Name = User.Identity.Name;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReceiveBooking(Guid idBooking)
+        {
+            var result = await _bookingServices.ReceiveBooking(new Entities.BookingInfo()
+            {
+                Id = idBooking,
+                DriverId = User.FindFirst("Id")?.Value
+            });
+                         
+            return Json(new { result.Success, data = idBooking });
+        }
+
+        [HttpGet]
+        public IActionResult HandleTrip(Guid id)
+        {
+            ViewBag.IdBooking = id;
             return View();
         }
     }

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Go";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Thực hiện chuyến đi</h1>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
+</div>
+<div id="modal-placeholder">
+    <div id="chatbox" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="chatmessage">
+                    </ul>
+                    <input id="chat" class="form-control" /><button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        var idBooking = '@ViewBag.IdBooking';
+    </script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/common.js" asp-append-version="true"></script>
+    <script src="~/js/driver/handleTrip.js" asp-append-version="true"></script>
+}

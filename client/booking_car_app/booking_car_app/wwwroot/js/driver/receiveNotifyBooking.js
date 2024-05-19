@@ -1,13 +1,10 @@
 ﻿
 var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44312/broadcastHub").build();
 
-
-
-connection.start().then(function () {
-    //document.getElementById("sendButton").disabled = false;
+connection.start().then(function () {    
     connection.invoke("BroadcastBooking").catch(function (err) {
         return console.log(err.toString());
-    });00
+    });
     console.log('start');
     
 }).catch(function (err) {
@@ -16,47 +13,45 @@ connection.start().then(function () {
 
 connection.on("BroadcastBooking", function (data) {
     let bookingInfo = JSON.parse(data);
-    console.log(bookingInfo);
-    renderNotifyHtml(bookingInfo);
-    //let item = document.createElement('div');  
-    //item.className = 'alert alert-primary';
-
-    //item.innerHTML = `<label>Điểm đón: ${bookingInfo.DiemDon}</label><br />
-    //        <label>Điểm đến: ${bookingInfo.DiemDen}</label>`;
-    //console.log(data);
-    //var li = document.createElement("li");
-    //document.getElementById("notifyBooking").appendChild(item);
-
-    //li.textContent = `${user} says ${message}`;
+    console.log(renderNotifyHtml(bookingInfo));
+    $("#notifyBooking").append(renderNotifyHtml(bookingInfo));    
 });
 
 connection.on("ListBooking", function (data) {
-    //console.log(data);    
-    let listBooking = JSON.parse(data);
-    $.each(listBooking, (index, value) => {
-        renderNotifyHtml(value);
-    });
+    console.log(data);
+    let listBooking = JSON.parse(data);    
+    let html = listBooking.map(x => renderNotifyHtml(x));  
+    $("#notifyBooking").html(html.join(''));
+   
 });
 
-function renderNotifyHtml(notify) {
-    let item = document.createElement('div');
-    item.className = 'col-sm-6 col-md-6 col-lg-6 col-xl-6';
-    let itemChild = document.createElement('div');
-    itemChild.className = 'alert alert-primary';
-    itemChild.innerHTML = `<label>Điểm đón: ${notify.DiemDon}</label><br />
-            <label>Điểm đến: ${notify.DiemDen}</label> <br /> 
-            <button class='btn btn-sm btn-success' onclick='receive("${notify.Id}")'>Nhận chuyến</button>`;
-    item.appendChild(itemChild);
-    document.getElementById("notifyBooking").appendChild(item);
+function renderNotifyHtml(notify) {   
+    return `<div class='col-sm-6 col-md-6 col-lg-6 col-xl-6'>
+                <div class='alert alert-primary'>
+                    <label>Điểm đón: ${notify.DiemDon}</label><br />
+                    <label>Điểm đến: ${notify.DiemDen}</label> <br />
+                    <button class='btn btn-sm btn-success' onclick='receive("${notify.Id}")'>Nhận chuyến</button>
+                </div>
+            </div>`;    
 }
 
-function receive(idBooking) {
-
-}
-
-function test() {
-    connection.invoke("RefreshBroadcastBooking").catch(function (err) {
-        return console.log(err.toString());
-    });    
+async function receive(idBooking) {
+    let header = createHeader($('form'));
+    let result = await postData('/Driver/Booking/ReceiveBooking', { idBooking }, header);
+    console.log(result);
+    if (result.success) {
+        connection.invoke("RefreshBroadcast").catch(function (err) {
+            return console.log(err.toString());
+        });
+        window.location.replace(`/Driver/Booking/HandleTrip/${idBooking}`);
+    }
+    
+    //connection.invoke("JoinRoom", idBooking).catch(function (err) {
+    //    return console.log(err.toString());
+    //});
+   
+    //connection.invoke("ReceiveBooking", idBooking).catch(function (err) {
+    //    return console.log(err.toString());
+    //});
 }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,11 +34,13 @@ namespace booking_car_app.Controllers
         public IActionResult Index()
         {
             ViewBag.Name = User.Identity.Name;
-            
-            return View(new BookingInfo() { 
+
+            return View(new BookingInfo()
+            {
                 UserId = User.FindFirst("Id")?.Value, 
                 Name = User.Identity.Name, 
-                Phone = User.FindFirst("UserName")?.Value });
+                Phone = User.FindFirst("UserName")?.Value
+            });// User.FindFirst("UserName")?.Value });
         }
         [Authorize]
         public async Task<IActionResult> Privacy()
@@ -88,10 +91,10 @@ namespace booking_car_app.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Booking(BookingInfo bookingInfo)
+        public async Task<IActionResult> Booking([FromBody]BookingInfo bookingInfo)
         {
             var result = await _bookingServices.FindDriver(bookingInfo);
-            return View();
+            return Json(new { result.Success, data = JsonConvert.SerializeObject(result.Data)});
         }
         
         public IActionResult Logout()
