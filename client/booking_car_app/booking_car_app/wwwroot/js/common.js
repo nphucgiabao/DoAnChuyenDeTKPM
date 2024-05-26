@@ -23,3 +23,21 @@ function postData(url, data, headers, contentType = 'application/x-www-form-urle
         });
     });
 }
+
+function getData(url, data) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url,
+            type: 'GET',
+            data,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                resolve(response);
+            },
+            error: function (jqXHR, exception, error) {
+                reject(error + ': ' + jqXHR.responseText);
+            }
+        });
+    });
+}

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace booking_api.Infrastructure.Repository.Repositories.Bookings
+namespace booking_api.Infrastructure.Repository.Repositories
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
@@ -28,9 +28,9 @@ namespace booking_api.Infrastructure.Repository.Repositories.Bookings
             CancellationToken cancellationToken = default);
 
        
-        bool Insert(TEntity entity);
-        bool InsertMultiple(List<TEntity> entities);
-        bool Delete(TEntity entityToDelete);
-        bool Update(TEntity entityToUpdate);
+        void Insert(TEntity entity);
+        void InsertMultiple(List<TEntity> entities);
+        void Delete(TEntity entityToDelete);
+        void Update(TEntity entityToUpdate);
     }
 }

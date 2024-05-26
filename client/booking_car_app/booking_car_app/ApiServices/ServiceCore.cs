@@ -27,6 +27,7 @@ namespace booking_car_app.ApiServices
             var httpClient = _httpClientFactory.CreateClient("BookingCarAPIClient");
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
+            
 
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 

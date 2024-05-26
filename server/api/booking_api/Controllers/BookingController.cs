@@ -1,7 +1,7 @@
 ﻿using booking_api.Entities;
 using booking_api.Hubs;
 using booking_api.Infrastructure.Repository.Entities;
-using booking_api.Infrastructure.Repository.Repositories.Bookings;
+using booking_api.Infrastructure.Repository.Repositories;
 using booking_api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +20,12 @@ namespace booking_api.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IHubContext<BroadcastHub> _broadcastHub;
-        private readonly IBookingRepository _bookingRepository;
-        public BookingController(IHubContext<BroadcastHub> broadcastHub, IBookingRepository bookingRepository)
+        private readonly IUnitOfWork _uniOfWork;        
+        public BookingController(IHubContext<BroadcastHub> broadcastHub, IUnitOfWork unitOfWork)
         {
             _broadcastHub = broadcastHub;
-            _bookingRepository = bookingRepository;
+            _uniOfWork = unitOfWork;
+           
         }        
         [HttpPost]
         public async Task<IActionResult> FindDriver([FromBody] BookingInfo info)
@@ -40,23 +41,44 @@ namespace booking_api.Controllers
             booking.DiemDen = info.DiemDen;
             booking.NgayTao = DateTime.Now;
             booking.Status = 1;
-            var result = _bookingRepository.Insert(booking);
-            if (result)
+            _uniOfWork.bookingRepository.Insert(booking);
+            var result = await _uniOfWork.Commit();
+            if (result > 0)
                 await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", JsonConvert.SerializeObject(booking));
             
-            return Ok(new ResponseModel() { Success = result, Data = booking });
+            return Ok(new ResponseModel() { Success = result > 0, Data = booking });
         }
         [HttpPost]
         public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)
         {
-            var booking = await _bookingRepository.GetAsync(x => x.Id == info.Id);
+            var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
             booking.Id = info.Id.Value;
             booking.DriverId = info.DriverId;           
             booking.Status = 2;
-            var result = _bookingRepository.Update(booking);
-            if(result)
+            _uniOfWork.bookingRepository.Update(booking);
+            var result = await _uniOfWork.Commit();
+            if(result > 0)
                 await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", JsonConvert.SerializeObject(booking));
-            return Ok(new ResponseModel() { Success = result });
+            return Ok(new ResponseModel() { Success = result > 0 });
+        }
+
+        [HttpGet]
+        [Route("{distance}/{idType}")]
+        public async Task<IActionResult> UnitPrice(decimal distance, int idType)
+        {
+            var type = await _uniOfWork.typeCarRepository.GetAsync(x => x.Id == idType);
+            if (distance <= 2)
+                return Ok(new ResponseModel() { Data = new { Price = distance * type.GiaCuoc2Kmdau } });
+            else
+                return Ok(new ResponseModel() { Data = new { Price = 2 * type.GiaCuoc2Kmdau + ((distance - 2) * type.GiaCuocSau2Km) } });
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetBookingById(Guid id)
+        {
+            var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == id);
+            return Ok(new ResponseModel() { Data = booking });
         }
     }
 }

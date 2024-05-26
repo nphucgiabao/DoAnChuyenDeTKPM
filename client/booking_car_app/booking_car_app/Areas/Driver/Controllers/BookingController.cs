@@ -1,6 +1,8 @@
 ﻿using booking_car_app.ApiServices.Booking;
+using booking_car_app.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,10 +40,12 @@ namespace booking_car_app.Areas.Driver.Controllers
         }
 
         [HttpGet]
-        public IActionResult HandleTrip(Guid id)
+        public async Task<IActionResult> HandleTrip(Guid id)
         {
-            ViewBag.IdBooking = id;
-            return View();
+            //ViewBag.IdBooking = id;
+            var booking = await _bookingServices.GetBookingById(id);
+            var data = booking.Data.ToString();
+            return View(JsonConvert.DeserializeObject<BookingInfo>(data));
         }
     }
 }

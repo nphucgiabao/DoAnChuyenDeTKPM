@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "booking_api", "booking_api\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageQueue", "MessageQueue\MessageQueue.csproj", "{F70C85BA-BFC2-4957-9B2C-4675C9609E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "driver_api", "driver_api\driver_api.csproj", "{01AC5D2D-846A-4E9F-8465-013A50168A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "driver_api", "driver_api\driver_api.csproj", "{01AC5D2D-846A-4E9F-8465-013A50168A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkout_api", "checkout_api\checkout_api.csproj", "{C67C7901-0A57-49B6-9D40-DCB9ECE29E9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{01AC5D2D-846A-4E9F-8465-013A50168A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01AC5D2D-846A-4E9F-8465-013A50168A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01AC5D2D-846A-4E9F-8465-013A50168A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C67C7901-0A57-49B6-9D40-DCB9ECE29E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67C7901-0A57-49B6-9D40-DCB9ECE29E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67C7901-0A57-49B6-9D40-DCB9ECE29E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67C7901-0A57-49B6-9D40-DCB9ECE29E9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

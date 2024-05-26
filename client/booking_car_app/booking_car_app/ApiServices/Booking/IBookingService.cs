@@ -11,5 +11,7 @@ namespace booking_car_app.ApiServices.Booking
     {
         Task<ResponseModel> FindDriver(BookingInfo bookingInfo);
         Task<ResponseModel> ReceiveBooking(BookingInfo bookingInfo);
+        Task<ResponseModel> UnitPrice(decimal distance, int typeId);
+        Task<ResponseModel> GetBookingById(Guid id);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using booking_car_app.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,29 +29,31 @@ namespace booking_car_app.Middlewares
             var request = new HttpRequestMessage(HttpMethod.Get, "/connect/userinfo");
 
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCode();
-            if (response.IsSuccessStatusCode)
+            if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var user = JsonConvert.DeserializeObject<User>(content);
-                var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.FullName),
-            new Claim("Id", user.Id),
-            new Claim("UserName", user.UserName),
-            new Claim(ClaimTypes.Role, user.Role)
+                await context.SignOutAsync();
+            }
+            else
+            {
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var user = JsonConvert.DeserializeObject<User>(content);
+                    var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, user.FullName),
+                    new Claim("Id", user.Id),
+                    new Claim("UserName", user.UserName),
+                    new Claim(ClaimTypes.Role, user.Role)
+                };
 
-        };
+                    var identity = new ClaimsIdentity(claims);
+                    var principal = new ClaimsPrincipal(identity);
 
-                var identity = new ClaimsIdentity(claims);
-                var principal = new ClaimsPrincipal(identity);
-
-                context.User = principal;
+                    context.User = principal;
+                }
             }
             
-           
-
             await _next(context);
         }
     }

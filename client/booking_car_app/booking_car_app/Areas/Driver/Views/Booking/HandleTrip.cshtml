@@ -1,14 +1,23 @@
-﻿@{
+﻿@model booking_car_app.Entities.BookingInfo
+@{
     ViewData["Title"] = "Go";
 }
 
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 <div class="text-center">
     <h1 class="display-4">Thực hiện chuyến đi</h1>
     <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
 </div>
+<div class="row">
+    <div id="map" class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="height: 500px;">
+
+    </div>
+</div>
 <div id="modal-placeholder">
     <div id="chatbox" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+        <input type="hidden" value="@Model.DiemDon" id="end"/>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,9 +40,13 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
-        var idBooking = '@ViewBag.IdBooking';
+        var idBooking = '@Model.Id';
+        //var end = '@Model.DiemDon';
     </script>
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="~/js/common.js" asp-append-version="true"></script>
     <script src="~/js/driver/handleTrip.js" asp-append-version="true"></script>
 }

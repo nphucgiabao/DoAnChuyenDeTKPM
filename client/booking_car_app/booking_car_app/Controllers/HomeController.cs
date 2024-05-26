@@ -96,7 +96,14 @@ namespace booking_car_app.Controllers
             var result = await _bookingServices.FindDriver(bookingInfo);
             return Json(new { result.Success, data = JsonConvert.SerializeObject(result.Data)});
         }
-        
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetPrice(int idType, decimal distance)
+        {
+            var result = await _bookingServices.UnitPrice(distance, idType);
+            return Json(new { data = JsonConvert.SerializeObject(result.Data) });
+        }
+
         public IActionResult Logout()
         {
             return SignOut("Cookies", "oidc");

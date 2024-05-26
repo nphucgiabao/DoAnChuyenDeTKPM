@@ -1,5 +1,6 @@
 using booking_api.Hubs;
 using booking_api.Infrastructure.Repository;
+using booking_api.Infrastructure.Repository.Repositories;
 using booking_api.Infrastructure.Repository.Repositories.Bookings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,7 @@ namespace booking_api
             services.AddDbContext<car_bookingContext>();
 
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication("Bearer")
            .AddJwtBearer("Bearer", options =>
@@ -46,7 +48,7 @@ namespace booking_api
                    ValidateAudience = false
                };
            });
-
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
@@ -58,7 +60,7 @@ namespace booking_api
                                .AllowCredentials();
                     });
             });
-           
+
             services.AddSignalR();
         }
 
@@ -85,7 +87,7 @@ namespace booking_api
                 routes.MapHub<BroadcastHub>("/broadcastHub");
             });
 
-           
+            //app.UseEndpoints(endp => endp.MapHub<BroadcastHub>("/broadcastHub"));
 
             app.UseEndpoints(endpoints =>
             {
