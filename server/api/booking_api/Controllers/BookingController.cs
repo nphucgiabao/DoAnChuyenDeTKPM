@@ -40,6 +40,7 @@ namespace booking_api.Controllers
             booking.DiemDon = info.DiemDon;
             booking.DiemDen = info.DiemDen;
             booking.NgayTao = DateTime.Now;
+            booking.UnitPrice = info.UnitPrice;
             booking.Status = 1;
             _uniOfWork.bookingRepository.Insert(booking);
             var result = await _uniOfWork.Commit();

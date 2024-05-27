@@ -8,6 +8,8 @@ var options = {
 let apiKey = 'c7973264305771f8f550ce353b92a4cf';
 let idBooking;
 var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44312/broadcastHub").build();
+let driver = null;
+let unitPrice;
 
 connection.start().then(function () {
     //document.getElementById("sendButton").disabled = false;
@@ -26,6 +28,8 @@ connection.on("ReceiveBooking", function (data) {
         $('#btnChat').css('display', 'block');
     }
 });
+
+
 
 connection.on("ReceiveMessage", function (message) {
     $('#chatmessage').append(`<li>${message}</li>`);
@@ -74,10 +78,11 @@ control.on('routesfound', async function (e) {
     console.log(`Distance Km: ${distanceKm} km`);
     let result = await getData('/Home/GetPrice', { idType: 1, distance: distanceKm });
     let data = JSON.parse(result.data);
-    console.log(data.price);
-    let price = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ";
+    unitPrice = data.price;
+    let price = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //$('#UnitPrice').val(data.price);
     $('#routeButton').remove();
-    $('#frmBooking').append(`<button class='btn btn-primary' type='submit'>Đặt chuyến  ->  ${price}</button>`)
+    $('#frmBooking').append(`<button class='btn btn-primary' type='submit'>Đặt chuyến  ->  ${price}đ</button>`)
 });
 
 //$(document).ready(function () {
@@ -129,11 +134,11 @@ function sendMessage() {
 $(document).ready(function () {
     $('form').submit(function (e) {
         e.preventDefault();
-        console.log(this);
         $.validator.unobtrusive.parse(this);
         if ($(this).valid()) {
             let headers = createHeader(this);
             let model = $(this).serializeJSON();
+            model['UnitPrice'] = unitPrice;
             postData('/Home/Booking', JSON.stringify(model), headers, 'application/json; charset=utf-8')
                 .then((response) => {                    
                     if (response.success) {
@@ -152,6 +157,15 @@ $(document).ready(function () {
                 }).catch(err => console.log(err));
         }
     })
+});
+
+connection.on('UpdateLocationDriver', (data) => {
+    if (driver == null)
+        driver = L.marker([data.latitude, data.longitude]).addTo(map).bindPopup('Driver').openPopup();
+    else
+        driver.setLatLng([data.latitude, data.longitude])
+            .bindPopup('Tài xế đã tới đón bạn')
+            .openPopup();
 });
 
 function submit(form) {

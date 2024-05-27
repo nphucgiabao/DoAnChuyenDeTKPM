@@ -14,5 +14,6 @@ namespace booking_car_app.Entities
         public string Name { get; set; }
         public string Phone { get; set; }
         public string DriverId { get; set; }
+        public decimal? UnitPrice { get; set; }
     }
 }

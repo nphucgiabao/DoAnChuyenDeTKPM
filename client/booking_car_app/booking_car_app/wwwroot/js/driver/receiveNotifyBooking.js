@@ -28,8 +28,11 @@ connection.on("ListBooking", function (data) {
 function renderNotifyHtml(notify) {   
     return `<div class='col-sm-6 col-md-6 col-lg-6 col-xl-6'>
                 <div class='alert alert-primary'>
+                    <label>Tên khách hàng: ${notify.Name}</label><br />
+                    <label>Số điện thoại: ${notify.Phone}</label><br />
                     <label>Điểm đón: ${notify.DiemDon}</label><br />
                     <label>Điểm đến: ${notify.DiemDen}</label> <br />
+                    <label>Giá: ${notify.UnitPrice}</label> <br />
                     <button class='btn btn-sm btn-success' onclick='receive("${notify.Id}")'>Nhận chuyến</button>
                 </div>
             </div>`;    

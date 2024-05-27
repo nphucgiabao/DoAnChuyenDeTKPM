@@ -1,4 +1,6 @@
 ﻿var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44312/broadcastHub").build();
+let marker1, marker2;
+let startLocation, endLocation;
 
 connection.start().then(function () {
      connection.invoke("JoinRoom", idBooking).catch(function (err) {
@@ -51,8 +53,12 @@ async function search(query) {
 
 $(document).ready(function () {
     navigator.geolocation.getCurrentPosition(async (pos) => {
-        const startLocation = [pos.coords.latitude, pos.coords.longitude];
-        const endLocation = await search(document.getElementById('end').value);
+        connection.invoke("UpdateLocationDriver", idBooking, pos.coords.latitude, pos.coords.longitude)
+            .catch(function (err) {
+            return console.log(err.toString());
+        });
+        startLocation = [pos.coords.latitude, pos.coords.longitude];
+        endLocation = await search(document.getElementById('end').value);
         //console.log(endLocation);
         if (endLocation) {
 
@@ -60,8 +66,8 @@ $(document).ready(function () {
             control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
 
             // Add custom markers
-            L.marker(startLocation).addTo(map).bindPopup('Start Location').openPopup();
-            L.marker(endLocation).addTo(map).bindPopup('End Location').openPopup();
+            marker1 = L.marker(startLocation).addTo(map).bindPopup('Start Location').openPopup();
+            marker2 = L.marker(endLocation).addTo(map).bindPopup('End Location').openPopup();
 
             // Center the map to the route
             const bounds = L.latLngBounds([startLocation, endLocation]);
@@ -70,9 +76,16 @@ $(document).ready(function () {
     });
 });
 
-
-
-
+navigator.geolocation.watchPosition((pos) => {
+    console.log('update');
+    marker1.setLatLng([pos.coords.latitude, pos.coords.longitude])
+        .bindPopup('Updated location.')
+        .openPopup();
+    connection.invoke("UpdateLocationDriver", idBooking, pos.coords.latitude, pos.coords.longitude)
+        .catch(function (err) {
+            return console.log(err.toString());
+    });
+});
 
 function sendMessage() {
     let message = $('#chat').val();
@@ -80,4 +93,35 @@ function sendMessage() {
         return console.log(err.toString());
     });
     //$('#chatmessage').append(`<li>${message}</li>`);
+}
+
+async function goTrip() {
+    startLocation = await search(document.getElementById('end').value);
+    marker1.setLatLng(startLocation)
+        .bindPopup('Đã đón khách')
+        .openPopup();
+
+    endLocation = await search(document.getElementById('go').value);
+    marker2.setLatLng(endLocation)
+        .bindPopup('Điểm đến')
+        .openPopup();
+
+    control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
+    const bounds = L.latLngBounds([startLocation, endLocation]);
+    map.fitBounds(bounds);
+
+    connection.invoke("UpdateLocationDriver", idBooking, startLocation[0], startLocation[1])
+        .catch(function (err) {
+            return console.log(err.toString());
+        });
+}
+
+function finish() {
+    marker1.setLatLng(endLocation)
+        .bindPopup('Đã đến nơi')
+        .openPopup();
+    connection.invoke("UpdateLocationDriver", idBooking, endLocation[0], endLocation[1])
+        .catch(function (err) {
+            return console.log(err.toString());
+        });
 }

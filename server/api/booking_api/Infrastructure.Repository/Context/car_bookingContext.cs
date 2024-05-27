@@ -40,6 +40,8 @@ namespace booking_api.Infrastructure.Repository
 
                 entity.Property(e => e.DiemDon).IsRequired();
 
+                entity.Property(e => e.UnitPrice).IsRequired();
+
                 entity.Property(e => e.DriverId)
                     .HasMaxLength(50)
                     .IsUnicode(false);

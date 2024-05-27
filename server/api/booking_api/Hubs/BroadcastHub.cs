@@ -41,5 +41,9 @@ namespace booking_api.Hubs
         {
             await Clients.Group(roomName).SendAsync("ReceiveMessage", content);
         }
+        public async Task UpdateLocationDriver(string roomName, decimal latitude, decimal longitude)
+        {
+            await Clients.Group(roomName).SendAsync("UpdateLocationDriver", new { latitude, longitude });
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace booking_api.Infrastructure.Repository.Entities
         public string DriverId { get; set; }
         public string Phone { get; set; }
         public string Name { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }

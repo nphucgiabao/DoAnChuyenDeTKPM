@@ -9,8 +9,10 @@
 <div class="text-center">
     <h1 class="display-4">Thực hiện chuyến đi</h1>
     <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
+    <button class="btn btn-info" onclick="goTrip()">Đã đón khách</button>
+    <button class="btn btn-success" onclick="finish()">Hoàn thành</button>
 </div>
-<div class="row">
+<div class="row mt-2">
     <div id="map" class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="height: 500px;">
 
     </div>
@@ -18,6 +20,7 @@
 <div id="modal-placeholder">
     <div id="chatbox" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
         <input type="hidden" value="@Model.DiemDon" id="end"/>
+        <input type="hidden" value="@Model.DiemDen" id="go"/>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
