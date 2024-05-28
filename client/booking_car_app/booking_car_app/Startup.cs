@@ -1,4 +1,5 @@
 using booking_car_app.ApiServices.Booking;
+using booking_car_app.ApiServices.Drivers;
 using booking_car_app.ApiServices.User;
 using booking_car_app.HttpHandlers;
 using booking_car_app.Middlewares;
@@ -37,6 +38,7 @@ namespace booking_car_app
             services.AddControllersWithViews();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IDriverService, DriverServices>();
             
             services.AddTransient<AuthenticationDelegatingHandler>();            
 

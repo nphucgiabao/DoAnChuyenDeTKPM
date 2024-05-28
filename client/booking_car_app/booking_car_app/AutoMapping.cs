@@ -11,6 +11,7 @@ namespace booking_car_app
         public AutoMapping()
         {
             CreateMap<Models.RegisterViewModel, Entities.User>().ReverseMap();
+            CreateMap<Models.DriverViewModel, Entities.Driver>().ReverseMap();
         }
     }
 }
