@@ -1,0 +1,43 @@
+﻿@model booking_car_app.Models.DriverViewModel
+
+@{
+    Layout = null;
+}
+
+<form onsubmit="return addEdit(this)" asp-antiforgery="true" method="post">
+    <input asp-for="Id" type="hidden" />       
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">Tài xế</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">                   
+                    <div class="form-group">
+                        <label asp-for="Name">Họ tên (*):</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone">Số điện thoại (*):</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BienSoXe">Biển số (*):</label>
+                        <input asp-for="BienSoXe" class="form-control" />
+                        <span asp-validation-for="BienSoXe" class="text-danger"></span>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    <button type="submit" class="btn btn-primary" data-add="modal">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

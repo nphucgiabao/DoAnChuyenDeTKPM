@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Manage Driver";
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+        <table id="dataTable" class="table table-bordered">
+            <thead class="text-secondary-m2 bg-tbl-header">
+                <tr>
+                <th>Họ tên</th>
+                <th>Biển số</th>
+                <th>Điện thoại</th>
+                <th></th>
+                </tr>                
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="modal-placeholder"></div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/common.js" asp-append-version="true"></script>
+    <script src="~/js/manage/driver.js" asp-append-version="true"></script>
+}

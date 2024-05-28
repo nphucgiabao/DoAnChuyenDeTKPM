@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using booking_api.Infrastructure.Repository;
 
 namespace booking_api.Migrations
 {
     [DbContext(typeof(car_bookingContext))]
-    partial class car_bookingContextModelSnapshot : ModelSnapshot
+    [Migration("20240528025421_UpdateTableDriver")]
+    partial class UpdateTableDriver
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +100,6 @@ namespace booking_api.Migrations
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
                         .IsUnicode(false);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("varchar(15)")

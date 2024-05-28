@@ -14,6 +14,6 @@ namespace booking_car_app.Areas.Manage.Controllers
         public IActionResult Index()
         {
             return View();
-        }
+        }        
     }
 }
