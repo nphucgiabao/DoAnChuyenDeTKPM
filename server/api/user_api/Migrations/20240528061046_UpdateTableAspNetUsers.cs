@@ -7,12 +7,11 @@ namespace user_api.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.AddColumn<Guid>(
                name: "OId",
                table: "AspNetUsers",
                nullable: true,
-               type: "varchar",
-               maxLength: 100);
+               type: "uniqueidentifier");
 
         }
 

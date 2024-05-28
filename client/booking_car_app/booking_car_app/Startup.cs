@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using System;
@@ -40,8 +41,8 @@ namespace booking_car_app
             services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<IDriverService, DriverServices>();
             
-            services.AddTransient<AuthenticationDelegatingHandler>();            
-
+            services.AddTransient<AuthenticationDelegatingHandler>();
+            
             services.AddHttpClient("BookingCarAPIClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44308/"); // API GATEWAY URL
@@ -58,7 +59,7 @@ namespace booking_car_app
             services.AddHttpContextAccessor();
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = "Cookies";
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = "oidc";
             })
     .AddCookie("Cookies")
@@ -79,9 +80,11 @@ namespace booking_car_app
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            NameClaimType = JwtClaimTypes.GivenName,
+            NameClaimType = JwtClaimTypes.Name,
             RoleClaimType = JwtClaimTypes.Role
         };
+
+       
     });
             services.AddAutoMapper(typeof(Startup));
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");

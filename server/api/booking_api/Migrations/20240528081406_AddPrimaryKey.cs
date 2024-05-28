@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace booking_api.Migrations
 {
@@ -6,26 +7,25 @@ namespace booking_api.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
+            migrationBuilder.AlterColumn<Guid>(
+            name: "Id",
+            table: "Driver",
+            type: "uniqueidentifier"
+        );
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Driver",
                 table: "Driver",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(255)",
-                oldMaxLength: 255,
-                oldNullable: true);
+                column: "Id");
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_BookingHistory",
+                table: "BookingHistory",
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Driver",
-                type: "nvarchar(255)",
-                maxLength: 255,
-                nullable: true,
-                oldClrType: typeof(string),
-                oldNullable: true);
+            migrationBuilder.DropPrimaryKey(name: "PK_Driver", table: "Driver");
+            migrationBuilder.DropPrimaryKey(name: "PK_BookingHistory", table: "BookingHistory");
         }
     }
 }

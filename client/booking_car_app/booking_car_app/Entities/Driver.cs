@@ -7,5 +7,6 @@
         public string BienSoXe { get; set; }
         public string Phone { get; set; }
         public string Avartar { get; set; }
+        public int TypeCar { get; set; }
     }
 }

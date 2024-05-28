@@ -14,5 +14,6 @@ namespace booking_car_app.Entities
         public string Email { get; set; }
         public string Role { get; set; }
         public string Id { get; set; }
+        public Guid? OId { get; set; }
     }
 }

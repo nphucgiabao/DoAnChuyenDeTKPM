@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace booking_car_app.Areas.Driver.Controllers
 {
     [Area("Driver")]
-    [Authorize]
+    [Authorize(Roles = "Driver")]
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingServices;
@@ -33,9 +33,8 @@ namespace booking_car_app.Areas.Driver.Controllers
             var result = await _bookingServices.ReceiveBooking(new Entities.BookingInfo()
             {
                 Id = idBooking,
-                DriverId = User.FindFirst("Id")?.Value
-            });
-                         
+                DriverId = User.FindFirst("OId")?.Value
+            });                         
             return Json(new { result.Success, data = idBooking });
         }
 

@@ -10,7 +10,8 @@ namespace booking_api.Migrations
                 name: "Name",
                 table: "Driver",
                 nullable: false,
-                type: "nvarchar");
+                type: "nvarchar",
+                maxLength: 255);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

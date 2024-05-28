@@ -59,6 +59,7 @@ namespace booking_car_app.Controllers
             try
             {
                 var user = _mapper.Map<Entities.User>(model);
+                user.UserName = model.PhoneNumber;
                 var result = await _userServices.Register(user);
                 if (result.Success)
                     return RedirectToAction("Index");

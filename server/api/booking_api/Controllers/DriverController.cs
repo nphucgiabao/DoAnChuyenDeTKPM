@@ -32,27 +32,27 @@ namespace booking_api.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(info.Id))
+                if (info.Id == Guid.Empty)
                 {
-                    info.Id = Guid.NewGuid().ToString();
+                    info.Id = Guid.NewGuid();
                     _uniOfWork.driverRepository.Insert(info);
                 }
                 else
                     _uniOfWork.driverRepository.Update(info);
                 var result = await _uniOfWork.Commit();
                 if (result > 0)
-                    return Ok(new ResponseModel() { Success = result > 0, Data = info });
+                    return Ok(new ResponseModel() { Success = result > 0, Data = info, Message = "Save success" });
                 return Ok(new ResponseModel() { Success = result > 0, Message = "Save error" });
             }
             catch(Exception ex)
             {
                 return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
-            }
-            
+            }            
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetById(string id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             return Ok(new ResponseModel() { Success = true, Data = await _uniOfWork.driverRepository.GetAsync(x=>x.Id == id) });
         }

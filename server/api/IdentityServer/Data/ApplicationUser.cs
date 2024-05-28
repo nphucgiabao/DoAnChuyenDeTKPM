@@ -9,5 +9,6 @@ namespace IdentityServer.Data
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
+        public Guid? OId { get; set; }
     }
 }

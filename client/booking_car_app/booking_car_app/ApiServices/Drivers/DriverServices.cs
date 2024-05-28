@@ -1,6 +1,7 @@
 ﻿using booking_car_app.Entities;
 using booking_car_app.Models;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,6 +22,11 @@ namespace booking_car_app.ApiServices.Drivers
         public async Task<ResponseModel> GetAll()
         {
             return await GetRequest("/driver/getAll");
+        }
+
+        public async Task<ResponseModel> GetById(Guid id)
+        {
+            return await GetRequest($"/driver/getById/{id}");
         }
     }
 }

@@ -79,6 +79,8 @@ namespace booking_api.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime");
 
+                    b.HasKey("Id");
+
                     b.ToTable("BookingHistory");
                 });
 
@@ -109,6 +111,8 @@ namespace booking_api.Migrations
 
                     b.Property<int?>("TypeCar")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Driver");
                 });

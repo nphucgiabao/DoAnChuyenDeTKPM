@@ -9,6 +9,6 @@ namespace user_api.Identity
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
-        public string OId { get; set; }
+        public Guid? OId { get; set; }
     }
 }

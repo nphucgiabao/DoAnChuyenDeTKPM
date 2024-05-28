@@ -26,18 +26,24 @@ $(document).ready(function () {
             "contentType": "application/json",
             "datatype": "json",
             "dataSrc": function (json) {
-                console.log(json);
+                if (json.data)
+                    return json.data;
                 return [];
             },
             "error": function (jqXHR, exception, error) {
-                toastr.error(error + ': ' + jqXHR.responseText);
+                console.log(error + ': ' + jqXHR.responseText);
             }
         },
         "columnDefs": [
-            //{ "data": "thuTu", "orderable": false, "className": "text-center font-size-15", "targets": 0 },
-            //{ "data": "tenDotDangKy", "className": "text-center font-size-15", "orderable": false, "targets": 1 },
-            //{ "data": "nienKhoa", "className": "text-center font-size-15", "orderable": false, "targets": 2 },
-            //{ "data": "nienKhoa", "className": "text-center font-size-15", "orderable": false, "targets": 2 },
+            { "data": "name", "orderable": false, "className": " ", "targets": 0 },
+            { "data": "bienSoXe", "className": "text-center ", "orderable": false, "targets": 1 },
+            { "data": "phone", "className": "text-center ", "orderable": false, "targets": 2 },
+            {
+                "data": "id", "className": "text-center ", "orderable": false, "targets": 3,
+                "render": function (data, type, row, meta) {
+                    return `<a class='btn btn-info btn-sm text-white' onclick=showPopup('/Manage/Driver/AddEdit?id=${data}')>Chỉnh sửa</a><a class='btn btn-primary btn-sm text-white' style='margin-left:5px' onclick=showPopup('/Manage/Driver/CreateAccount?id=${data}')>Tạo tài khoản</a>`;
+                }
+            }
             
         ],
         "createdRow": function (row, data, dataIndex) {
@@ -116,7 +122,7 @@ $(document).ready(function () {
         //move searchbox into table header
         .find('.dataTables_filter').find('input').addClass('pl-4 radius-round').prop('name', 'search')
         //and add a "plus" button
-        .end().append('<button data-rel="tooltip" type="button" data-toggle="ajax-modal" class="btn radius-round btn-outline-primary border-2 btn-sm ml-2" title="Thêm mới" data-url="/Manage/Driver/AddEdit"><i class="fa fa-plus"></i></button>');
+        .end().append('<button data-rel="tooltip" type="button" data-toggle="ajax-modal" class="btn btn-sm btn-primary" title="Thêm mới" data-url="/Manage/Driver/AddEdit">Thêm</button>');
 
     //dataTable.on('draw', function () {
     //    $('.js-switch').each(function () {
@@ -138,10 +144,33 @@ function addEdit(form) {
     $.validator.unobtrusive.parse(form);
     if ($(form).valid()) {
         let headers = createHeader(form);
-        let model = $(form).serializeJSON();       
+        let model = $(form).serializeJSON();
+        model['TypeCar'] = 1;
         postData('/Manage/Driver/AddEdit', JSON.stringify(model), headers, 'application/json; charset=utf-8')
             .then((response) => {
-                if (response.Success) {
+                console.log(response);
+                if (response.success) {
+                    placeholderElement.find('.modal').modal('hide');
+                    alert(response.message);
+                    dataTable.ajax.reload();
+                }
+                else {
+                    console.log(response.message);
+                }
+            }).catch(err => console.log(err));
+    }
+    return false;
+}
+
+function createAccount(form) {
+    $.validator.unobtrusive.parse(form);
+    if ($(form).valid()) {
+        let headers = createHeader(form);
+        let model = $(form).serializeJSON();        
+        postData('/Manage/Driver/CreateAccount', JSON.stringify(model), headers, 'application/json; charset=utf-8')
+            .then((response) => {
+                console.log(response);
+                if (response.success) {
                     placeholderElement.find('.modal').modal('hide');
                     alert(response.message);
                     //dataTable.ajax.reload();

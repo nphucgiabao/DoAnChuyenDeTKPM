@@ -48,10 +48,11 @@ namespace user_api.Controllers
                 try
                 {
                     var newUser = Activator.CreateInstance<ApplicationUser>();
+                    newUser.UserName = model.UserName;
                     newUser.FullName = model.FullName;
                     newUser.PhoneNumber = model.PhoneNumber;
                     newUser.OId = model.OId;
-                    await _userStore.SetUserNameAsync(newUser, model.PhoneNumber, CancellationToken.None);
+                    await _userStore.SetUserNameAsync(newUser, newUser.UserName, CancellationToken.None);
                     //await _emailStore.SetEmailAsync(newUser, model.Email, CancellationToken.None);
                     var result = await _userManager.CreateAsync(newUser, model.Password);
                     if (result.Succeeded)

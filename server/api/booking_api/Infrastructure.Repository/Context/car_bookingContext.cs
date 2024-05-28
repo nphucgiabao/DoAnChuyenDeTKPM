@@ -26,7 +26,7 @@ namespace booking_api.Infrastructure.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-RI384NB;Database=car_booking;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4EQA7EB;Database=car_booking;Integrated Security=true;");
             }
         }
 
@@ -61,14 +61,15 @@ namespace booking_api.Infrastructure.Repository
 
             modelBuilder.Entity<BookingHistory>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Driver>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.Property(e => e.Avartar).IsUnicode(false);
 
@@ -77,9 +78,10 @@ namespace booking_api.Infrastructure.Repository
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Id)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.Id)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(15)
