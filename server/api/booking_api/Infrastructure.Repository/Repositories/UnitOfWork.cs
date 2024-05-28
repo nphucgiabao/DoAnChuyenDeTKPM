@@ -1,4 +1,5 @@
 ﻿using booking_api.Infrastructure.Repository.Repositories.Bookings;
+using booking_api.Infrastructure.Repository.Repositories.Drivers;
 using booking_api.Infrastructure.Repository.Repositories.TypeCars;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,14 @@ namespace booking_api.Infrastructure.Repository.Repositories
         private readonly car_bookingContext context;
         private IBookingRepository _bookingRepository;
         private ITypeCarRepository _typeCarRepository;
+        private IDriverRepository _driverRepository;
         public UnitOfWork(car_bookingContext context)
         {
             this.context = context;
         }
         public IBookingRepository bookingRepository => _bookingRepository ?? (_bookingRepository = new BookingRepository(this.context));
-
         public ITypeCarRepository typeCarRepository => _typeCarRepository ?? (_typeCarRepository = new TypeCarRepository(this.context));
+        public IDriverRepository driverRepository => _driverRepository ?? (_driverRepository = new DriverRepository(this.context));
 
         public Task<int> Commit(CancellationToken cancellationToken = default)
         {

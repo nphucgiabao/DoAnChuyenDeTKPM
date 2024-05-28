@@ -59,7 +59,10 @@ namespace booking_api.Controllers
             _uniOfWork.bookingRepository.Update(booking);
             var result = await _uniOfWork.Commit();
             if(result > 0)
-                await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", JsonConvert.SerializeObject(booking));
+            {
+                var driver = await _uniOfWork.driverRepository.GetAsync(x => x.Id == info.DriverId);
+                await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", driver);
+            }                
             return Ok(new ResponseModel() { Success = result > 0 });
         }
 

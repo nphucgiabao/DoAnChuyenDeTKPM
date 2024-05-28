@@ -7,10 +7,10 @@
 
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/nhatnghe.css" rel="stylesheet" />
-
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-
+    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" asp-append-version="true">
+    <link href="~/lib/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/datatables.net-buttons-bs4/css/buttons.bootstrap4.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
     <div class="container">
@@ -86,6 +86,15 @@
             </footer>
         </div>
     </div>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables.net-buttons-bs4/js/buttons.bootstrap4.js"></script>
+    <script src="~/lib/datatables.net-colreorder/js/dataTables.colReorder.js"></script>
+    <script src="~/lib/datatables.net-select/js/dataTables.select.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

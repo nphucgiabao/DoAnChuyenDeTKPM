@@ -23,6 +23,7 @@ connection.start().then(function () {
 
 connection.on("ReceiveBooking", function (data) {
     if (data) {
+        console.log(data);
         $('#modal-placeholder').find('.modal').modal('hide');
         alert('Đã có tài xế');
         $('#btnChat').css('display', 'block');

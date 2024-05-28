@@ -1,4 +1,11 @@
-﻿function createHeader(form) {
+﻿
+function showPopup(url) {
+    $.get(url).done(function (data) {
+        placeholderElement.html(data);
+        placeholderElement.find('.modal').modal(options);
+    });
+}
+function createHeader(form) {
     let token = $('input[name="__RequestVerificationToken"]', form).val();
     let headers = {};
     headers['X-XSRF-Token'] = token;

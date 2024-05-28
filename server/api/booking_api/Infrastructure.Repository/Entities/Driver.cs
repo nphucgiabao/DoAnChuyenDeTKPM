@@ -10,5 +10,6 @@ namespace booking_api.Infrastructure.Repository.Entities
         public string Phone { get; set; }
         public string Avartar { get; set; }
         public int? TypeCar { get; set; }
+        public string Name { get; set; }
     }
 }

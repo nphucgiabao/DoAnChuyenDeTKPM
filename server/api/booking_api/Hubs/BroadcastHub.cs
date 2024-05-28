@@ -21,13 +21,13 @@ namespace booking_api.Hubs
             var cnId = Context.ConnectionId;
             var listBooking = await _bookingRepository.GetAllAsync(x => x.Status == 1);
             await Clients.Client(cnId).SendAsync("ListBooking", 
-                JsonConvert.SerializeObject(listBooking.Select(x=>new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone }).ToList()));
+                JsonConvert.SerializeObject(listBooking.Select(x=>new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone, x.UnitPrice }).ToList()));
         }
         public async Task RefreshBroadcast()
         {
             var listBooking = await _bookingRepository.GetAllAsync(x => x.Status == 1);
             await Clients.All.SendAsync("ListBooking",
-                JsonConvert.SerializeObject(listBooking.Select(x => new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone }).ToList()));
+                JsonConvert.SerializeObject(listBooking.Select(x => new { x.Id, x.DiemDen, x.DiemDon, x.Name, x.Phone, x.UnitPrice }).ToList()));
         }
         //public async Task ReceiveBooking(string id)
         //{
