@@ -58,6 +58,8 @@ namespace booking_car_app.Areas.Manage.Controllers
             {
                 var driver = JsonConvert.DeserializeObject<Entities.Driver>(result.Data.ToString());
                 account.UserName = driver.Phone;
+                account.PhoneNumber = driver.Phone;
+                account.FullName = driver.Name;
                 account.OId = id;
             }                
             return View(account);
