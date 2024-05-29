@@ -5,7 +5,9 @@ using booking_car_app.HttpHandlers;
 using booking_car_app.Middlewares;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -86,6 +88,11 @@ namespace booking_car_app
 
        
     });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("RequireAdministratorRole",
+            //    policy => policy.RequireRole("Driver"));
+            //});
             services.AddAutoMapper(typeof(Startup));
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
             //services.AddAuthentication(options =>
@@ -150,6 +157,7 @@ namespace booking_car_app
             app.UseAuthorization();
 
             app.UseMiddleware<UserMiddleware>();
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -160,7 +168,7 @@ namespace booking_car_app
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-         
+
         }
     }
 }

@@ -6,6 +6,8 @@
 
 <form onsubmit="return createAccount(this)" asp-antiforgery="true" method="post">
     <input asp-for="OId" type="hidden" />
+    <input asp-for="FullName" type="hidden" />
+    <input asp-for="PhoneNumber" type="hidden" />
     <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

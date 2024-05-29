@@ -1,7 +1,9 @@
 ﻿using booking_car_app.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,17 +42,19 @@ namespace booking_car_app.Middlewares
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<User>(content);
+                    //var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                     var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, user.FullName),
                     new Claim("Id", user.Id),
                     new Claim("UserName", user.UserName),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
-
+                   
                     var identity = new ClaimsIdentity(claims);
                     var principal = new ClaimsPrincipal(identity);
 
                     context.User = principal;
+                    
                 }
             }
             

@@ -1,5 +1,6 @@
 ﻿using booking_car_app.ApiServices.Booking;
 using booking_car_app.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,7 +12,8 @@ using System.Threading.Tasks;
 namespace booking_car_app.Areas.Driver.Controllers
 {
     [Area("Driver")]
-    [Authorize(Roles = "Driver")]
+    //[Authorize(Roles = "Driver")]
+    [Authorize(JwtBearerDefaults.AuthenticationScheme, Roles = "Driver")]
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingServices;
