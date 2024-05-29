@@ -7,10 +7,13 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 <div class="text-center">
-    <h1 class="display-4">Thực hiện chuyến đi</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
-    <button class="btn btn-info" onclick="goTrip()">Đã đón khách</button>
-    <button class="btn btn-success" onclick="finish()">Hoàn thành</button>
+    <form onsubmit="return false;" asp-antiforgery="true">
+        <h1 class="display-4">Thực hiện chuyến đi</h1>
+        <p>Tên khách hàng: @Model.Name - Số điện thoại: @Model.Phone - Số tiền: @string.Format("{0:#,##0}đ", Model.UnitPrice)</p>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
+        <button id="gotrip" class="btn btn-info" onclick="goTrip('@Model.Id')">Đã đón khách</button>
+        <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>
+    </form>    
 </div>
 <div class="row mt-2">
     <div id="map" class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="height: 500px;">

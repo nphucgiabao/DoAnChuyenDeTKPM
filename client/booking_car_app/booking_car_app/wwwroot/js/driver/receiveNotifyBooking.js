@@ -32,7 +32,7 @@ function renderNotifyHtml(notify) {
                     <label>Số điện thoại: ${notify.Phone}</label><br />
                     <label>Điểm đón: ${notify.DiemDon}</label><br />
                     <label>Điểm đến: ${notify.DiemDen}</label> <br />
-                    <label>Giá: ${notify.UnitPrice}</label> <br />
+                    <label>Giá: ${notify.UnitPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}đ</label> <br />
                     <button class='btn btn-sm btn-success' onclick='receive("${notify.Id}")'>Nhận chuyến</button>
                 </div>
             </div>`;    

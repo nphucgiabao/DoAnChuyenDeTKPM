@@ -47,6 +47,7 @@ namespace booking_car_app.Middlewares
                     new Claim(ClaimTypes.Name, user.FullName),
                     new Claim("Id", user.Id),
                     new Claim("UserName", user.UserName),
+                    new Claim("OId", user.OId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
                    

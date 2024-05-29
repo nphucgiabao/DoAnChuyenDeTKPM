@@ -14,6 +14,7 @@ namespace booking_api.Entities
         public string Phone { get; set; }
         public string Name { get; set; }
         public string DriverId { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public int Status { get; set; }
     }
 }

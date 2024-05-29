@@ -34,5 +34,10 @@ namespace booking_car_app.ApiServices.Booking
             var formattedDecimal = distance.ToString(CultureInfo.InvariantCulture);
             return await GetRequest($"/user/unitPrice/{formattedDecimal}/{typeId}");
         }
+
+        public async Task<ResponseModel> UpdateStatusBooking(BookingInfo bookingInfo)
+        {
+            return await PostRequest<BookingInfo>("/driver/updateStatusBooking", bookingInfo);
+        }
     }
 }

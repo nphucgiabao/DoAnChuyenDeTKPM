@@ -1,6 +1,5 @@
 ﻿using booking_car_app.ApiServices.Booking;
 using booking_car_app.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,7 +12,6 @@ namespace booking_car_app.Areas.Driver.Controllers
 {
     [Area("Driver")]
     //[Authorize(Roles = "Driver")]
-    [Authorize(JwtBearerDefaults.AuthenticationScheme, Roles = "Driver")]
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingServices;
@@ -37,7 +35,19 @@ namespace booking_car_app.Areas.Driver.Controllers
                 Id = idBooking,
                 DriverId = User.FindFirst("OId")?.Value
             });                         
-            return Json(new { result.Success, data = idBooking });
+            return Json(new { result.Success, data = idBooking, result.Message });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateStatusBooking(Guid idBooking, int status)
+        {
+            var result = await _bookingServices.UpdateStatusBooking(new Entities.BookingInfo()
+            {
+                Id = idBooking,
+                Status = status
+            });
+            return Json(new { result.Success, data = idBooking, result.Message });
         }
 
         [HttpGet]
@@ -47,6 +57,11 @@ namespace booking_car_app.Areas.Driver.Controllers
             var booking = await _bookingServices.GetBookingById(id);
             var data = booking.Data.ToString();
             return View(JsonConvert.DeserializeObject<BookingInfo>(data));
+        }
+        [HttpGet]
+        public IActionResult Finish()
+        {
+            return View();
         }
     }
 }

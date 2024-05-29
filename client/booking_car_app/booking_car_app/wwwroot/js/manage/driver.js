@@ -182,3 +182,50 @@ function createAccount(form) {
     }
     return false;
 }
+
+const postFile = (fileData, form) => {
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
+    var headers = {};
+    headers['X-XSRF-Token'] = token;
+    var formData = new FormData();
+    formData.append('file', fileData);
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/File/Upload",
+            headers: headers,
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (response) {
+                resolve(response.fileName);
+            },
+            error: function (jqXHR, exception, error) {
+                alert(error + ':' + jqXHR.responseText);
+                reject(error + ':' + jqXHR.responseText);
+            }
+        });
+    });
+}
+
+async function uploadImage(fileUpload) {
+    if (fileUpload.files && fileUpload.files[0]) {
+        let ext = fileUpload.files[0].name.split('.').pop();
+        let fileExtension = ['png', 'jpg', 'jpeg'];
+        if ($.inArray(ext.toLowerCase(), fileExtension) == -1) {
+            toastr.warning("File không hợp lệ!");
+            return false;
+        }
+        //fileUpload.files[0].name = `file_anh_${fileUpload.files[0].name}`;
+        let fileName = await postFile(fileUpload.files[0], $('form'));
+        //let d = new Date();
+        $('#driverImage').attr('src', `/img/${fileName}`);
+        $('#driverImage').css('display', 'block');
+        $('#Avartar').val(fileName);
+       
+        //$(fileUpload).css('display', 'none');
+    }
+}

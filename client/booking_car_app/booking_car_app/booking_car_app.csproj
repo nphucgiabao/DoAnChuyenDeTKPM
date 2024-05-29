@@ -16,6 +16,7 @@
     <Folder Include="Areas\Driver\Data\" />
     <Folder Include="Areas\Driver\Models\" />
     <Folder Include="Areas\Manage\Data\" />
+    <Folder Include="wwwroot\lib\leaflet\" />
   </ItemGroup>
 
 </Project>

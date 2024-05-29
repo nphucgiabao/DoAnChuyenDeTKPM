@@ -78,9 +78,11 @@ $(document).ready(function () {
 
 navigator.geolocation.watchPosition((pos) => {
     console.log('update');
-    marker1.setLatLng([pos.coords.latitude, pos.coords.longitude])
-        .bindPopup('Updated location.')
-        .openPopup();
+    if (marker1) {
+        marker1.setLatLng([pos.coords.latitude, pos.coords.longitude])
+            .bindPopup('Updated location.')
+            .openPopup();
+    }    
     connection.invoke("UpdateLocationDriver", idBooking, pos.coords.latitude, pos.coords.longitude)
         .catch(function (err) {
             return console.log(err.toString());
@@ -95,33 +97,45 @@ function sendMessage() {
     //$('#chatmessage').append(`<li>${message}</li>`);
 }
 
-async function goTrip() {
-    startLocation = await search(document.getElementById('end').value);
-    marker1.setLatLng(startLocation)
-        .bindPopup('Đã đón khách')
-        .openPopup();
+async function goTrip(idBooking) {
+    let header = createHeader($('form'));
+    let result = await postData('/Driver/Booking/UpdateStatusBooking', { idBooking, status: 3 }, header);
+    console.log(result);
+    if (result.success) {
+        $('#gotrip').css('display', 'none');
+        $('#hoanthanh').css('display', 'block');
+        startLocation = await search(document.getElementById('end').value);
+        marker1.setLatLng(startLocation)
+            .bindPopup('Đã đón khách')
+            .openPopup();
 
-    endLocation = await search(document.getElementById('go').value);
-    marker2.setLatLng(endLocation)
-        .bindPopup('Điểm đến')
-        .openPopup();
+        endLocation = await search(document.getElementById('go').value);
+        marker2.setLatLng(endLocation)
+            .bindPopup('Điểm đến')
+            .openPopup();
 
-    control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
-    const bounds = L.latLngBounds([startLocation, endLocation]);
-    map.fitBounds(bounds);
+        control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
+        const bounds = L.latLngBounds([startLocation, endLocation]);
+        map.fitBounds(bounds);
 
-    connection.invoke("UpdateLocationDriver", idBooking, startLocation[0], startLocation[1])
-        .catch(function (err) {
-            return console.log(err.toString());
-        });
+        connection.invoke("UpdateLocationDriver", idBooking, startLocation[0], startLocation[1])
+            .catch(function (err) {
+                return console.log(err.toString());
+            });
+    }
 }
 
-function finish() {
-    marker1.setLatLng(endLocation)
-        .bindPopup('Đã đến nơi')
-        .openPopup();
-    connection.invoke("UpdateLocationDriver", idBooking, endLocation[0], endLocation[1])
-        .catch(function (err) {
-            return console.log(err.toString());
-        });
+async function finish(idBooking) {
+    let header = createHeader($('form'));
+    let result = await postData('/Driver/Booking/UpdateStatusBooking', { idBooking, status: 4 }, header);
+    if (result.success) {
+        window.location.replace(`/Driver/Booking/Finish`);
+    }
+    //marker1.setLatLng(endLocation)
+    //    .bindPopup('Đã đến nơi')
+    //    .openPopup();
+    //connection.invoke("UpdateLocationDriver", idBooking, endLocation[0], endLocation[1])
+    //    .catch(function (err) {
+    //        return console.log(err.toString());
+    //    });
 }

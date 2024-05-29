@@ -23,7 +23,13 @@ connection.start().then(function () {
 
 connection.on("ReceiveBooking", function (data) {
     if (data) {
-        console.log(data);
+        if (data.avartar) {
+            $('#avartar').attr('src', `/img/${data.avartar}`);
+        }
+        $('#nameDriver').text('Tên tài xế: ' + data.name);
+        $('#phoneDriver').text('Số điện thoại: ' + data.phone);
+        $('#BienSo').text('Biển số xe: ' + data.bienSoXe);
+        $('#driver').css('display', 'block');
         $('#modal-placeholder').find('.modal').modal('hide');
         alert('Đã có tài xế');
         $('#btnChat').css('display', 'block');
@@ -165,8 +171,15 @@ connection.on('UpdateLocationDriver', (data) => {
         driver = L.marker([data.latitude, data.longitude]).addTo(map).bindPopup('Driver').openPopup();
     else
         driver.setLatLng([data.latitude, data.longitude])
-            .bindPopup('Tài xế đã tới đón bạn')
+            .bindPopup('Tài xế đang tới đón bạn')
             .openPopup();
+});
+
+connection.on('UpdateStatusBooking', (data) => {
+    if (data == 3)
+        alert('Bắt đầu chuyến đi, Chúc bạn có chuyến đi vui vẻ');
+    else if (data == 4)
+        window.location.replace(`/Home/Finish`);
 });
 
 function submit(form) {

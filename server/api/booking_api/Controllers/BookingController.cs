@@ -40,8 +40,15 @@ namespace booking_api.Controllers
             booking.DiemDon = info.DiemDon;
             booking.DiemDen = info.DiemDen;
             booking.NgayTao = DateTime.Now;
-            booking.UnitPrice = info.UnitPrice;
+            booking.UnitPrice = info.UnitPrice.Value;
             booking.Status = 1;
+            _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+            {
+                Id = Guid.NewGuid(),
+                BookingId = booking.Id,
+                Status = 1,
+                Time = DateTime.Now
+            });
             _uniOfWork.bookingRepository.Insert(booking);
             var result = await _uniOfWork.Commit();
             if (result > 0)
@@ -52,18 +59,64 @@ namespace booking_api.Controllers
         [HttpPost]
         public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)
         {
-            var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
-            booking.Id = info.Id.Value;
-            booking.DriverId = info.DriverId;           
-            booking.Status = 2;
-            _uniOfWork.bookingRepository.Update(booking);
-            var result = await _uniOfWork.Commit();
-            if(result > 0)
+            try
             {
-                var driver = await _uniOfWork.driverRepository.GetAsync(x => x.Id == Guid.Parse(info.DriverId));
-                await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", driver);
-            }                
-            return Ok(new ResponseModel() { Success = result > 0 });
+                var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
+                //booking.Id = info.Id.Value;
+                booking.DriverId = info.DriverId;
+                booking.Status = 2;
+                _uniOfWork.bookingRepository.Update(booking);
+                _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+                {
+                    Id = Guid.NewGuid(),
+                    BookingId = booking.Id,
+                    Status = 2,
+                    Time = DateTime.Now
+                });
+                var result = await _uniOfWork.Commit();
+                if (result > 0)
+                {
+                    var driver = await _uniOfWork.driverRepository.GetAsync(x => x.Id == Guid.Parse(info.DriverId));
+                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", driver);
+                }
+                return Ok(new ResponseModel() { Success = result > 0 });
+            }
+            catch(Exception ex)
+            {
+                return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
+            }
+           
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatusBooking([FromBody] BookingInfo info)
+        {
+            try
+            {
+                var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
+                //booking.Id = info.Id.Value;
+                //booking.DriverId = info.DriverId;
+                booking.Status = info.Status;
+                _uniOfWork.bookingRepository.Update(booking);
+                _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+                {
+                    Id = Guid.NewGuid(),
+                    BookingId = booking.Id,
+                    Status = info.Status,
+                    Time = DateTime.Now
+                });
+                var result = await _uniOfWork.Commit();
+                if (result > 0)
+                {         
+                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);
+                }
+                return Ok(new ResponseModel() { Success = result > 0 });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
+            }
+
         }
 
         [HttpGet]

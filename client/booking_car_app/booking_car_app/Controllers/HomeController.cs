@@ -109,6 +109,11 @@ namespace booking_car_app.Controllers
         {
             return SignOut("Cookies", "oidc");
         }
+        [HttpGet]
+        public IActionResult Finish()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

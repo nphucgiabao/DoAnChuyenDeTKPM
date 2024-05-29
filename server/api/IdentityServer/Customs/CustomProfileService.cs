@@ -28,7 +28,7 @@ namespace IdentityServer.Customs
             new Claim("FullName", user.FullName),
             new Claim("UserName", user.UserName),
             new Claim("Id", user.Id),
-            //new Claim("OId", user.OId == null ? "" : user.OId.ToString()),
+            new Claim("OId", user.OId == null ? "" : user.OId.ToString()),
             new Claim("Role", string.Join(",", await _userManager.GetRolesAsync(user)))
         };
 
