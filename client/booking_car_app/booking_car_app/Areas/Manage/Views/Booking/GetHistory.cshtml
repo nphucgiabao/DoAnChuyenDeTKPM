@@ -1,0 +1,87 @@
+﻿@model booking_car_app.Areas.Manage.Models.BookingDetailViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Chi tiết đơn hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if(Model.Driver != null)
+                {
+                    <div class="form-group">
+                        <label class="col-form-label">Tài xế thực hiện:</label> @Model.Driver.Name;<br />
+                        <label class="col-form-label">Số điện thoại:</label> @Model.Driver.Phone;<br />
+                        <label class="col-form-label">Biển số:</label> @Model.Driver.BienSoXe;<br />
+                    </div>
+                }
+                else
+                {
+                    <h3>Chưa có tài xế</h3>
+                }
+                @if (Model.BookingHistories != null)
+                {
+                    <div id="smartwizard" class="d-none">
+                        <ul class="mx-auto">
+                            <li class="wizard-progressbar"></li>
+                            @foreach(var item in Model.BookingHistories)
+                            {
+                                <li class="ml-0">
+                                    <a class="nav-link">
+                                        <span class="step-title">@item.Time.ToString("hh:mm")</span>
+                                        <span class="step-title-done">
+                                            <i class="fa fa-check text-success-m1"></i>
+                                        </span>
+                                    </a>
+                                    <span class="step-description" href="#">
+                                        @if (item.Status == 1)
+                                        {
+                                            <a class="link-action" href="#">
+                                                Tìm tài xế
+                                            </a>                                            
+                                        }
+                                        else if (item.Status == 2)
+                                        {
+                                            <a class="link-action" href="#">
+                                                Đón khách
+                                            </a>                                            
+                                        }
+                                        else if (item.Status == 3)
+                                        {
+                                            <a class="link-action" href="#">
+                                                Bắt đầu chuyến đi
+                                            </a>                                           
+                                        }
+                                        else if(item.Status == 4)
+                                        {
+                                            <a class="link-action" href="#">
+                                                Hoàn thành
+                                            </a>
+                                        }else if(item.Status == 5)
+                                        {
+                                            <a class="link-action" href="#">
+                                                Hủy chuyến
+                                            </a>
+                                        }
+
+                                    </span>
+                                </li>
+                            }                           
+                            
+                        </ul>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>

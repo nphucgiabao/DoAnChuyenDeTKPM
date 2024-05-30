@@ -16,5 +16,6 @@ namespace booking_car_app.Entities
         public string DriverId { get; set; }
         public decimal? UnitPrice { get; set; }
         public int Status { get; set; }
+        public DateTime NgayTao { get; set; }
     }
 }

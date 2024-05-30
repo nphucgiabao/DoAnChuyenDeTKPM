@@ -33,9 +33,9 @@
         <div id="driver" class="card" style="display: none;">
             <img id="avartar" class="card-img-top center" style="width:30%;" src="~/img/avartar.jpg" alt="Card image">
             <div class="card-body">
-                <h4 id="nameDriver" class="card-title">John Doe</h4>
-                <p id="phoneDriver" class="card-text">Some example text.</p>
-                <p id="BienSo" class="card-text">Some example text.</p>
+                <h4 id="nameDriver" class="card-title"></h4>
+                <p id="phoneDriver" class="card-text"></p>
+                <p id="BienSo" class="card-text"></p>
                 <button id="btnChat" data-toggle="modal" data-target="#chatbox" class="btn btn-primary">Chat với tài xế</button>
             </div>
         </div>        
@@ -63,7 +63,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-white">Chat</h5>
+                <h5 class="modal-title">Gửi tin</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -71,7 +71,8 @@
             <div class="modal-body">
                 <ul id="chatmessage">
                 </ul>
-                <input id="chat" class="form-control" /><button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
+                <input id="chat" class="form-control" />
+                <button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>

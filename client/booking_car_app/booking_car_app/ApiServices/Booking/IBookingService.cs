@@ -14,5 +14,7 @@ namespace booking_car_app.ApiServices.Booking
         Task<ResponseModel> UpdateStatusBooking(BookingInfo bookingInfo);
         Task<ResponseModel> UnitPrice(decimal distance, int typeId);
         Task<ResponseModel> GetBookingById(Guid id);
+        Task<ResponseModel> GetBookingHistory(Guid id);
+        Task<ResponseModel> GetAllBooking();
     }
 }

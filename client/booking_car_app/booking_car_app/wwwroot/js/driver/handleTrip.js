@@ -1,6 +1,12 @@
 ﻿var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44312/broadcastHub").build();
 let marker1, marker2;
 let startLocation, endLocation;
+var options = {
+    'backdrop': 'static',
+    'keyboard': true,
+    'show': true,
+    'focus': false
+};
 
 connection.start().then(function () {
      connection.invoke("JoinRoom", idBooking).catch(function (err) {
@@ -14,6 +20,7 @@ connection.start().then(function () {
 
 connection.on("ReceiveMessage", function (message) {
     $('#chatmessage').append(`<li>${message}</li>`);
+    $('#chatbox').modal(options);
 });
 
 var map = L.map('map').setView([10.79, 106.63], 13);
@@ -129,6 +136,9 @@ async function finish(idBooking) {
     let header = createHeader($('form'));
     let result = await postData('/Driver/Booking/UpdateStatusBooking', { idBooking, status: 4 }, header);
     if (result.success) {
+        connection.invoke("RemoveFromGroup", idBooking).catch(function (err) {
+            return console.log(err.toString());
+        });
         window.location.replace(`/Driver/Booking/Finish`);
     }
     //marker1.setLatLng(endLocation)

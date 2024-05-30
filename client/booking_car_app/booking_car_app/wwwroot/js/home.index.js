@@ -26,21 +26,25 @@ connection.on("ReceiveBooking", function (data) {
         if (data.avartar) {
             $('#avartar').attr('src', `/img/${data.avartar}`);
         }
-        $('#nameDriver').text('Tên tài xế: ' + data.name);
+        $('#nameDriver').text('Tài xế: ' + data.name);
         $('#phoneDriver').text('Số điện thoại: ' + data.phone);
         $('#BienSo').text('Biển số xe: ' + data.bienSoXe);
         $('#driver').css('display', 'block');
         $('#modal-placeholder').find('.modal').modal('hide');
-        alert('Đã có tài xế');
-        $('#btnChat').css('display', 'block');
+        Swal.fire({
+            text: 'Đã có tài xế',
+            icon: 'success',
+            timer: 5000
+        });
+        //$('#btnChat').css('display', 'block');
     }
 });
 
-
-
 connection.on("ReceiveMessage", function (message) {
     $('#chatmessage').append(`<li>${message}</li>`);
+    $('#chatbox').modal(options);
 });
+
 var map = L.map('map').setView([10.79, 106.63], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -176,10 +180,19 @@ connection.on('UpdateLocationDriver', (data) => {
 });
 
 connection.on('UpdateStatusBooking', (data) => {
-    if (data == 3)
-        alert('Bắt đầu chuyến đi, Chúc bạn có chuyến đi vui vẻ');
-    else if (data == 4)
+    if (data == 3) {
+        Swal.fire({
+            text: 'Bắt đầu chuyến đi, Chúc bạn có chuyến đi vui vẻ',
+            icon: 'success',
+            timer: 5000
+        });
+    }
+    else if (data == 4) {
+        connection.invoke("RemoveFromGroup", idBooking).catch(function (err) {
+            return console.log(err.toString());
+        });
         window.location.replace(`/Home/Finish`);
+    }
 });
 
 function submit(form) {

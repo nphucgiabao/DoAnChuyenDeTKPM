@@ -45,5 +45,9 @@ namespace booking_api.Hubs
         {
             await Clients.Group(roomName).SendAsync("UpdateLocationDriver", new { latitude, longitude });
         }
+        public async Task RemoveFromGroup(string groupName)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+        }
     }
 }

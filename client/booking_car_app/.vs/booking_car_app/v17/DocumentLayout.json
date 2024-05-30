@@ -1,0 +1,369 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\manage\\booking.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\wwwroot\\js\\manage\\booking.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\views\\booking\\gethistory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\views\\booking\\gethistory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\views\\booking\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\views\\booking\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\views\\shared\\_managelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\views\\shared\\_managelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\controllers\\drivercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\controllers\\drivercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\apiservices\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\apiservices\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\home.index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\wwwroot\\js\\home.index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\views\\driver\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\views\\driver\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\entities\\bookinginfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\entities\\bookinginfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\driver\\handletrip.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\wwwroot\\js\\driver\\handletrip.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\driver\\views\\booking\\handletrip.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\driver\\views\\booking\\handletrip.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\common.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\wwwroot\\js\\common.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\middlewares\\usermiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\middlewares\\usermiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\apiservices\\drivers\\driverservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\apiservices\\drivers\\driverservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\apiservices\\drivers\\idriverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\apiservices\\drivers\\idriverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|d:\\working\\doanchuyendetkpm\\client\\booking_car_app\\booking_car_app\\areas\\manage\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7764DEAC-211F-43E7-B377-8EBDBADE6391}|booking_car_app\\booking_car_app.csproj|solutionrelative:booking_car_app\\areas\\manage\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Booking\\Index.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Views\\Booking\\Index.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Booking\\Index.cshtml",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Views\\Booking\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T03:35:02.685Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "home.index.js",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\home.index.js",
+              "RelativeDocumentMoniker": "booking_car_app\\wwwroot\\js\\home.index.js",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\home.index.js",
+              "RelativeToolTip": "booking_car_app\\wwwroot\\js\\home.index.js",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAAAFwAAABLAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-28T07:26:24.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DriverController.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\DriverController.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Controllers\\DriverController.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\DriverController.cs",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Controllers\\DriverController.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAAAEMAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T06:26:50.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Startup.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Startup.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Startup.cs",
+              "RelativeToolTip": "booking_car_app\\Startup.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAAAE0AAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T09:24:16.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_ManageLayout.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Views\\Shared\\_ManageLayout.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Views\\Shared\\_ManageLayout.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Views\\Shared\\_ManageLayout.cshtml",
+              "RelativeToolTip": "booking_car_app\\Views\\Shared\\_ManageLayout.cshtml",
+              "ViewState": "AQIAAFIAAAAAAAAAAAAAAGMAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T04:11:22.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Controllers\\BookingController.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Controllers\\BookingController.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAABsAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T03:28:49.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetHistory.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Booking\\GetHistory.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Views\\Booking\\GetHistory.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Booking\\GetHistory.cshtml",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Views\\Booking\\GetHistory.cshtml",
+              "ViewState": "AQIAABYAAAAAAAAAAAAAACMAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T08:44:14.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "booking.js",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\manage\\booking.js",
+              "RelativeDocumentMoniker": "booking_car_app\\wwwroot\\js\\manage\\booking.js",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\manage\\booking.js",
+              "RelativeToolTip": "booking_car_app\\wwwroot\\js\\manage\\booking.js",
+              "ViewState": "AQIAALgAAAAAAAAAAAAAAMoAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-30T03:40:39.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Booking\\BookingService.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\ApiServices\\Booking\\BookingService.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Booking\\BookingService.cs",
+              "RelativeToolTip": "booking_car_app\\ApiServices\\Booking\\BookingService.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAIwB4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T06:48:11.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "booking_car_app\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAACQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T07:05:01.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Driver\\Index.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Views\\Driver\\Index.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Driver\\Index.cshtml",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Views\\Driver\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-28T06:39:45.958Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "common.js",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\common.js",
+              "RelativeDocumentMoniker": "booking_car_app\\wwwroot\\js\\common.js",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\common.js",
+              "RelativeToolTip": "booking_car_app\\wwwroot\\js\\common.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-28T07:28:03.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "handleTrip.js",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\driver\\handleTrip.js",
+              "RelativeDocumentMoniker": "booking_car_app\\wwwroot\\js\\driver\\handleTrip.js",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\wwwroot\\js\\driver\\handleTrip.js",
+              "RelativeToolTip": "booking_car_app\\wwwroot\\js\\driver\\handleTrip.js",
+              "ViewState": "AQIAAHcAAAAAAAAAAAAAAIwAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-30T02:24:47.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BookingInfo.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Entities\\BookingInfo.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Entities\\BookingInfo.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Entities\\BookingInfo.cs",
+              "RelativeToolTip": "booking_car_app\\Entities\\BookingInfo.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAABEAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T03:50:38.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "UserMiddleware.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Middlewares\\UserMiddleware.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Middlewares\\UserMiddleware.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Middlewares\\UserMiddleware.cs",
+              "RelativeToolTip": "booking_car_app\\Middlewares\\UserMiddleware.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAAADgAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T06:15:12.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "booking_car_app\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T01:45:03.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "HandleTrip.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Driver\\Views\\Booking\\HandleTrip.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Driver\\Views\\Booking\\HandleTrip.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Driver\\Views\\Booking\\HandleTrip.cshtml",
+              "RelativeToolTip": "booking_car_app\\Areas\\Driver\\Views\\Booking\\HandleTrip.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T02:24:36.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "DriverServices.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Drivers\\DriverServices.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\ApiServices\\Drivers\\DriverServices.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Drivers\\DriverServices.cs",
+              "RelativeToolTip": "booking_car_app\\ApiServices\\Drivers\\DriverServices.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T06:47:43.724Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IDriverService.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Drivers\\IDriverService.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\ApiServices\\Drivers\\IDriverService.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\ApiServices\\Drivers\\IDriverService.cs",
+              "RelativeToolTip": "booking_car_app\\ApiServices\\Drivers\\IDriverService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T06:47:13.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T06:26:55.112Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "booking_car_app\\Areas\\Manage\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Working\\DoAnChuyenDeTKPM\\client\\booking_car_app\\booking_car_app\\Areas\\Manage\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "booking_car_app\\Areas\\Manage\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-28T06:39:40.095Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

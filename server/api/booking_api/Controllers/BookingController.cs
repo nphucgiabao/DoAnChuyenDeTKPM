@@ -108,7 +108,7 @@ namespace booking_api.Controllers
                 var result = await _uniOfWork.Commit();
                 if (result > 0)
                 {         
-                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);
+                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);           
                 }
                 return Ok(new ResponseModel() { Success = result > 0 });
             }
