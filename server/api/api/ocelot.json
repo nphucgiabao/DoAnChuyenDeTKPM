@@ -108,6 +108,22 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/Booking/GetBookingByUserId/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "44312"
+        }
+      ],
+      "UpstreamPathTemplate": "/user/getBookingByUser/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey"
+
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/Driver/GetAll",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -166,6 +182,22 @@
       ],
       "UpstreamPathTemplate": "/driver/updateStatusBooking",
       "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey"
+
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Booking/GetBookingByDriverId/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "44312"
+        }
+      ],
+      "UpstreamPathTemplate": "/driver/getBookingByDriver/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "IdentityApiKey"
 

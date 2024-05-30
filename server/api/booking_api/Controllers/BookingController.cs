@@ -137,5 +137,19 @@ namespace booking_api.Controllers
             var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == id);
             return Ok(new ResponseModel() { Data = booking });
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetBookingByUserId(string id)
+        {
+            var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.UserId == id);
+            return Ok(new ResponseModel() { Data = booking });
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetBookingByDriverId(string id)
+        {
+            var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.DriverId == id);
+            return Ok(new ResponseModel() { Data = booking });
+        }
     }
 }

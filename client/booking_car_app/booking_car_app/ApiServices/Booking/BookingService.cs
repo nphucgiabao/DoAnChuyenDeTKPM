@@ -24,9 +24,19 @@ namespace booking_car_app.ApiServices.Booking
             return await GetRequest("/manage/getAllBooking");
         }
 
+        public async Task<ResponseModel> GetBookingByDriverId(string id)
+        {
+            return await GetRequest($"/driver/getBookingByDriver/{id}");
+        }
+
         public async Task<ResponseModel> GetBookingById(Guid id)
         {
             return await GetRequest($"/user/getBookingById/{id}");
+        }
+
+        public async Task<ResponseModel> GetBookingByUserId(string id)
+        {
+            return await GetRequest($"/user/getBookingByUser/{id}");
         }
 
         public async Task<ResponseModel> GetBookingHistory(Guid id)

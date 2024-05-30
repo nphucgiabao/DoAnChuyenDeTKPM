@@ -114,6 +114,13 @@ namespace booking_car_app.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> DonHang()
+        {
+            var result = await _bookingServices.GetBookingByUserId(User.FindFirst("Id")?.Value);
+            var data = JsonConvert.DeserializeObject<List<BookingInfo>>(result.Data.ToString());
+            return View(data);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

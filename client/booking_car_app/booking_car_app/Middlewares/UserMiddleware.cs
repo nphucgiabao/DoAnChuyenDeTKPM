@@ -33,7 +33,7 @@ namespace booking_car_app.Middlewares
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
             if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                await context.SignOutAsync();
+                await context.SignOutAsync("oidc");
             }
             else
             {
@@ -54,8 +54,7 @@ namespace booking_car_app.Middlewares
                     var identity = new ClaimsIdentity(claims);
                     var principal = new ClaimsPrincipal(identity);
 
-                    context.User = principal;
-                    
+                    context.User = principal;                    
                 }
             }
             

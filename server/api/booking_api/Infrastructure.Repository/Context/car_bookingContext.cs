@@ -26,7 +26,7 @@ namespace booking_api.Infrastructure.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-RI384NB;Database=car_booking;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-4EQA7EB;Database=car_booking;Integrated Security=true;");
             }
         }
 
