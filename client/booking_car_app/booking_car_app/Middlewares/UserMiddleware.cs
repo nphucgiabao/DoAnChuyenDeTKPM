@@ -56,8 +56,7 @@ namespace booking_car_app.Middlewares
 
                     context.User = principal;                    
                 }
-            }
-            
+            }            
             await _next(context);
         }
     }

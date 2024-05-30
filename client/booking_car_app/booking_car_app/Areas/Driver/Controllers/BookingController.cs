@@ -63,5 +63,12 @@ namespace booking_car_app.Areas.Driver.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> DonHang()
+        {
+            var result = await _bookingServices.GetBookingByDriverId(User.FindFirst("OId")?.Value);
+            var data = JsonConvert.DeserializeObject<List<BookingInfo>>(result.Data.ToString());
+            return View(data);
+        }
     }
 }

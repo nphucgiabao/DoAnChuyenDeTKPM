@@ -35,12 +35,21 @@ namespace booking_car_app.Controllers
         {
             ViewBag.Name = User.Identity.Name;
 
-            return View(new BookingInfo()
+            var role = User.FindFirst("role")?.Value;
+            if(role == "User")
             {
-                UserId = User.FindFirst("Id")?.Value, 
-                Name = User.Identity.Name, 
-                Phone = User.FindFirst("UserName")?.Value
-            });// User.FindFirst("UserName")?.Value });
+                return View(new BookingInfo()
+                {
+                    UserId = User.FindFirst("Id")?.Value,
+                    Name = User.Identity.Name,
+                    Phone = User.FindFirst("UserName")?.Value
+                });
+            }else if(role == "Driver")
+            {
+                return Redirect("/Driver/Booking/ReceiveNotifyBooking");
+            }
+            return Redirect("/Manage/Home/Index");
+            // User.FindFirst("UserNme")?.Value });
         }
         [Authorize]
         public async Task<IActionResult> Privacy()
@@ -83,10 +92,15 @@ namespace booking_car_app.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            var result = await _userServices.ResetPassword("npgbao", model.Password);
-            if (result.Success)
-                return View("Index");
-            return View("Error", new ErrorViewModel { RequestId = result.Message });
+            if (ModelState.IsValid)
+            {
+                var username = User.FindFirst("UserName")?.Value;
+                var result = await _userServices.ResetPassword(username, model.Password);
+                if (result.Success)
+                    return View("Index");
+                return View("Error", new ErrorViewModel { RequestId = result.Message });
+            }
+            return View(model);
         }
 
         [HttpPost]
