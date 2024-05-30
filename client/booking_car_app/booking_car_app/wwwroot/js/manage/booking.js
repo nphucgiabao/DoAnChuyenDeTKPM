@@ -6,6 +6,65 @@ var options = {
     'show': true,
     'focus': false
 };
+let unitPrice;
+const control = L.Routing.control({
+    waypoints: [],
+    router: L.Routing.osrmv1({
+        serviceUrl: 'https://router.project-osrm.org/route/v1'
+    }),
+    geocoder: L.Control.Geocoder.nominatim(),
+    createMarker: function () { return null; } // Prevent default markers
+});
+
+async function search(query) {
+    //let query = $(textbox).val();
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.length === 0) {
+            alert('No results found.');
+            return;
+        }
+        const location = data[0];
+        const latLng = [location.lat, location.lon];
+        return latLng;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+async function getDistance() {
+    const startLocation = await search(document.getElementById('DiemDon').value);
+    const endLocation = await search(document.getElementById('DiemDen').value);
+    if (startLocation && endLocation) {
+        // Clear existing markers and waypoints
+        control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
+        // Center the map to the route
+        const bounds = L.latLngBounds([startLocation, endLocation]);
+        map.fitBounds(bounds);
+    }
+}
+
+control.on('routesfound', async function (e) {
+    const routes = e.routes;
+    const summary = routes[0].summary;
+    const distance = summary.totalDistance; // Distance in meters
+    const distanceKm = (distance / 1000).toFixed(2); // Convert to kilometers and format
+
+    // Display distance
+    console.log(`Distance Km: ${distanceKm} km`);
+    let result = await getData('/Home/GetPrice', { idType: 1, distance: distanceKm });
+    let data = JSON.parse(result.data);
+    unitPrice = data.price;
+    let price = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //$('#UnitPrice').val(data.price);
+    $('#submit').text('Tạo đơn');
+    $('#submit').attr('type', 'submit');
+    $('#price').text(`${price}đ`);
+});
+
 $(document).ready(function () {
 
     $.extend(true, $.fn.dataTable.defaults, {
@@ -162,7 +221,7 @@ $(document).ready(function () {
         //move searchbox into table header
         .find('.dataTables_filter').find('input').addClass('pl-4 radius-round').prop('name', 'search')
         //and add a "plus" button
-        .end().append('<button data-rel="tooltip" type="button" data-toggle="ajax-modal" class="btn btn-sm btn-primary" title="Thêm mới" data-url="/Manage/Driver/AddEdit">Thêm</button>');
+        .end().append('<button data-rel="tooltip" type="button" data-toggle="ajax-modal" class="btn btn-sm btn-primary" title="Thêm mới" data-url="/Manage/Booking/AddBooking">Thêm</button>');
 
     //dataTable.on('draw', function () {
     //    $('.js-switch').each(function () {
@@ -291,4 +350,25 @@ async function uploadImage(fileUpload) {
 
         //$(fileUpload).css('display', 'none');
     }
+}
+
+function addEdit(form) {
+    $.validator.unobtrusive.parse(form);
+    if ($(form).valid()) {
+        let headers = createHeader(form);
+        let model = $(form).serializeJSON();
+        model['UnitPrice'] = unitPrice;
+        postData('/Manage/Booking/AddBooking', JSON.stringify(model), headers, 'application/json; charset=utf-8')
+            .then((response) => {
+                if (response.success) {
+                    console.log(response);
+                    let data = JSON.parse(response.data);                   
+                    $('#modal-placeholder').find('.modal').modal(options);                 
+                }
+                else {
+
+                }
+            }).catch(err => console.log(err));
+    }
+    return false;
 }

@@ -1,4 +1,5 @@
-﻿using booking_car_app.ApiServices.Booking;
+﻿using AutoMapper;
+using booking_car_app.ApiServices.Booking;
 using booking_car_app.ApiServices.Drivers;
 using booking_car_app.Areas.Manage.Models;
 using booking_car_app.Entities;
@@ -17,10 +18,12 @@ namespace booking_car_app.Areas.Manage.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly IDriverService _driverService;
-        public BookingController(IBookingService bookingService, IDriverService driverService) 
+        private readonly IMapper _mapper;
+        public BookingController(IBookingService bookingService, IDriverService driverService, IMapper mapper) 
         {
             _bookingService = bookingService;
             _driverService = driverService;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult Index()
@@ -52,6 +55,14 @@ namespace booking_car_app.Areas.Manage.Controllers
         public IActionResult AddBooking()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddBooking([FromBody] BookingViewModel model)
+        {
+            var bookingInfo = _mapper.Map<BookingInfo>(model);
+            var result = await _bookingService.FindDriver(bookingInfo);
+            return Json(new { result.Success, data = JsonConvert.SerializeObject(result.Data) });
         }
     }
 }

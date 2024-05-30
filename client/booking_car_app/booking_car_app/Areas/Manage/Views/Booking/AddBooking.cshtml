@@ -1,1 +1,49 @@
-﻿
+﻿@model booking_car_app.Areas.Manage.Models.BookingViewModel
+
+@{ 
+    Layout = null;
+}
+
+<form onsubmit="return addEdit(this)" asp-antiforgery="true" method="post">  
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">Tạo đơn hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Name">Tên khách hàng (*):</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone">Số điện thoại (*):</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiemDen"> (*):</label>
+                        <input asp-for="DiemDen" class="form-control" />
+                        <span asp-validation-for="DiemDen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiemDon"> (*):</label>
+                        <input asp-for="DiemDon" class="form-control" />
+                        <span asp-validation-for="DiemDen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label id="price"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    <button id="submit" type="button" class="btn btn-primary" data-add="modal">Tính đơn giá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
