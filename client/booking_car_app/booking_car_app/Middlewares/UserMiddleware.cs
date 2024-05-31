@@ -33,7 +33,7 @@ namespace booking_car_app.Middlewares
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
             if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                await context.SignOutAsync("oidc");
+                await context.SignOutAsync();
             }
             else
             {

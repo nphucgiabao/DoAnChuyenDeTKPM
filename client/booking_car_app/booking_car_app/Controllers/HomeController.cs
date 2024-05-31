@@ -35,20 +35,26 @@ namespace booking_car_app.Controllers
         {
             ViewBag.Name = User.Identity.Name;
 
-            var role = User.FindFirst("role")?.Value;
-            if(role == "User")
+            var role = User.FindFirst("Role")?.Value;
+            return View(new BookingInfo()
             {
-                return View(new BookingInfo()
-                {
-                    UserId = User.FindFirst("Id")?.Value,
-                    Name = User.Identity.Name,
-                    Phone = User.FindFirst("UserName")?.Value
-                });
-            }else if(role == "Driver")
-            {
-                return Redirect("/Driver/Booking/ReceiveNotifyBooking");
-            }
-            return Redirect("/Manage/Home/Index");
+                UserId = User.FindFirst("Id")?.Value,
+                Name = User.Identity.Name,
+                Phone = User.FindFirst("UserName")?.Value
+            });
+            //if (role == "User")
+            //{
+            //    return View(new BookingInfo()
+            //    {
+            //        UserId = User.FindFirst("Id")?.Value,
+            //        Name = User.Identity.Name,
+            //        Phone = User.FindFirst("UserName")?.Value
+            //    });
+            //}else if(role == "Driver")
+            //{
+            //    return Redirect("/Driver/Booking/ReceiveNotifyBooking");
+            //}
+            //return Redirect("/Manage/Home/Index");
             // User.FindFirst("UserNme")?.Value });
         }
         [Authorize]

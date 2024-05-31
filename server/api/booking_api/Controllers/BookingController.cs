@@ -1,8 +1,11 @@
 ﻿using booking_api.Entities;
+using booking_api.Features.Bookings.Commands;
+using booking_api.Features.Bookings.Models.Responses;
 using booking_api.Hubs;
 using booking_api.Infrastructure.Repository.Entities;
 using booking_api.Infrastructure.Repository.Repositories;
 using booking_api.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -20,41 +23,29 @@ namespace booking_api.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IHubContext<BroadcastHub> _broadcastHub;
-        private readonly IUnitOfWork _uniOfWork;        
-        public BookingController(IHubContext<BroadcastHub> broadcastHub, IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork _uniOfWork;
+        private readonly IMediator _mediator;
+        public BookingController(IHubContext<BroadcastHub> broadcastHub, IUnitOfWork unitOfWork, IMediator mediator)
         {
             _broadcastHub = broadcastHub;
             _uniOfWork = unitOfWork;
-           
+            _mediator = mediator;
         }        
         [HttpPost]
-        public async Task<IActionResult> FindDriver([FromBody] BookingInfo info)
-        {
-            //RabbitMQPublisher<BookingInfo> rabbitMQPublisher = new RabbitMQPublisher<BookingInfo>("booking");
-            //rabbitMQPublisher.SendMessage(info).Start();            
-            var booking = new Booking();
-            booking.Id = Guid.NewGuid();
-            booking.UserId = info.UserId;
-            booking.Name = info.Name;
-            booking.Phone = info.Phone;
-            booking.DiemDon = info.DiemDon;
-            booking.DiemDen = info.DiemDen;
-            booking.NgayTao = DateTime.Now;
-            booking.UnitPrice = info.UnitPrice.Value;
-            booking.Status = 1;
-            _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
-            {
-                Id = Guid.NewGuid(),
-                BookingId = booking.Id,
-                Status = 1,
-                Time = DateTime.Now
-            });
-            _uniOfWork.bookingRepository.Insert(booking);
-            var result = await _uniOfWork.Commit();
-            if (result > 0)
-                await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", JsonConvert.SerializeObject(booking));
-            
-            return Ok(new ResponseModel() { Success = result > 0, Data = booking });
+        public async Task<ActionResult<Response<BookingModelResponse>>> FindDriver([FromBody] BookingInfo info)
+        {                   
+            var request = new CreateBookingCommandRequest();            
+            request.UserId = info.UserId;
+            request.Name = info.Name;
+            request.Phone = info.Phone;
+            request.DiemDon = info.DiemDon;
+            request.DiemDen = info.DiemDen;            
+            request.UnitPrice = info.UnitPrice.Value;
+            request.Status = 1;         
+            var result = await _mediator.Send(request);
+            if(result.Success)
+                await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", JsonConvert.SerializeObject(result.Data));
+            return Ok(result);
         }
         [HttpPost]
         public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)

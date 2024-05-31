@@ -1,8 +1,12 @@
-﻿using booking_api.Infrastructure.Repository.Repositories;
+﻿using booking_api.Features.Bookings.Models.Responses;
+using booking_api.Features.Bookings.Queries;
+using booking_api.Infrastructure.Repository.Repositories;
 using booking_api.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +18,17 @@ namespace booking_api.Controllers
     public class ManageBookingController : ControllerBase
     {
         private readonly IUnitOfWork _uniOfWork;
-        public ManageBookingController(IUnitOfWork unitOfWork)
+        private readonly IMediator _mediator;
+        public ManageBookingController(IUnitOfWork unitOfWork, IMediator mediator)
         {
             _uniOfWork = unitOfWork;
+            _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetAll()
         {
-            return Ok(new ResponseModel() { Success = true, Data = await _uniOfWork.bookingRepository.GetAllAsync() });
+            //return Ok(new ResponseModel() { Success = true, Data = await _uniOfWork.bookingRepository.GetAllAsync() });
+            return Ok(await _mediator.Send(new GetAllBookingQueryRequest()));
         }
         [HttpGet]
         [Route("{id}")]

@@ -16,7 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using MediatR;
+using System.Reflection;
+using booking_api.Features.Bookings.Queries;
+using System.Globalization;
+using FluentValidation;
 namespace booking_api
 {
     public class Startup
@@ -60,8 +64,12 @@ namespace booking_api
                                .AllowCredentials();
                     });
             });
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddSignalR();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+          
+            //services.AddTransient<TestQueryHandler, TestQueryHandler>();
+            //services.AddMediatorHandlers(typeof(BookingCommandHandler).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +94,7 @@ namespace booking_api
             {
                 routes.MapHub<BroadcastHub>("/broadcastHub");
             });
+
 
             //app.UseEndpoints(endp => endp.MapHub<BroadcastHub>("/broadcastHub"));
 
