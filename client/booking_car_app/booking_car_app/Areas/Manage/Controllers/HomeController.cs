@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using booking_car_app.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,13 @@ namespace booking_car_app.Areas.Manage.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Name = User.Identity.Name;
             return View();
-        }        
+        }
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
     }
 }

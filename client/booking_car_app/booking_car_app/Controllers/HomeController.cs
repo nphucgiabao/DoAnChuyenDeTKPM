@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace booking_car_app.Controllers
@@ -35,26 +36,27 @@ namespace booking_car_app.Controllers
         {
             ViewBag.Name = User.Identity.Name;
 
-            var role = User.FindFirst("Role")?.Value;
-            return View(new BookingInfo()
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            //return View(new BookingInfo()
+            //{
+            //    UserId = User.FindFirst("Id")?.Value,
+            //    Name = User.Identity.Name,
+            //    Phone = User.FindFirst("UserName")?.Value
+            //});
+            if (role == "User")
             {
-                UserId = User.FindFirst("Id")?.Value,
-                Name = User.Identity.Name,
-                Phone = User.FindFirst("UserName")?.Value
-            });
-            //if (role == "User")
-            //{
-            //    return View(new BookingInfo()
-            //    {
-            //        UserId = User.FindFirst("Id")?.Value,
-            //        Name = User.Identity.Name,
-            //        Phone = User.FindFirst("UserName")?.Value
-            //    });
-            //}else if(role == "Driver")
-            //{
-            //    return Redirect("/Driver/Booking/ReceiveNotifyBooking");
-            //}
-            //return Redirect("/Manage/Home/Index");
+                return View(new BookingInfo()
+                {
+                    UserId = User.FindFirst("Id")?.Value,
+                    Name = User.Identity.Name,
+                    Phone = User.FindFirst("UserName")?.Value
+                });
+            }
+            else if (role == "Driver")
+            {
+                return Redirect("/Driver/Booking/ReceiveNotifyBooking");
+            }
+            return Redirect("/Manage/Home/Index");
             // User.FindFirst("UserNme")?.Value });
         }
         [Authorize]
@@ -103,7 +105,9 @@ namespace booking_car_app.Controllers
                 var username = User.FindFirst("UserName")?.Value;
                 var result = await _userServices.ResetPassword(username, model.Password);
                 if (result.Success)
-                    return View("Index");
+                {
+                    return SignOut("Cookies", "oidc");
+                }
                 return View("Error", new ErrorViewModel { RequestId = result.Message });
             }
             return View(model);
