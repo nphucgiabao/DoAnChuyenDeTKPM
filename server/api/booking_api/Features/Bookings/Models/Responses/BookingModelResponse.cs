@@ -7,7 +7,7 @@ namespace booking_api.Features.Bookings.Models.Responses
 {
     public class BookingModelResponse
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string UserId { get; set; }
         public string DiemDon { get; set; }
         public string DiemDen { get; set; }
