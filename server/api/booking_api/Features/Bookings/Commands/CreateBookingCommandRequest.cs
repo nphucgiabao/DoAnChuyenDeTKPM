@@ -1,6 +1,7 @@
 ﻿using booking_api.Features.Bookings.Mappers;
 using booking_api.Features.Bookings.Models.Request;
 using booking_api.Features.Bookings.Models.Responses;
+using booking_api.Infrastructure.Repository.Entities;
 using booking_api.Infrastructure.Repository.Repositories;
 using booking_api.Models;
 using MediatR;
@@ -33,9 +34,15 @@ namespace booking_api.Features.Bookings.Commands
                 {
                     var model = request.ToModel_Request()!;
                     model.Id = Guid.NewGuid();                    
-                    model.NgayTao = DateTime.Now;
-                    
+                    model.NgayTao = DateTime.Now;                    
                     _unitOfWork.bookingRepository.Insert(model);
+                    _unitOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+                    {
+                        Id = Guid.NewGuid(),
+                        BookingId = model.Id,
+                        Status = 1,
+                        Time = DateTime.Now
+                    });
                     var result = await _unitOfWork.Commit(cancellationToken);
                     return result > 0
                            ? new Response<BookingModelResponse>(model.ToModel_Response())
