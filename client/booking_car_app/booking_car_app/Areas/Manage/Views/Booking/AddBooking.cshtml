@@ -26,12 +26,12 @@
                         <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="DiemDen"> (*):</label>
+                        <label asp-for="DiemDen">Điểm đến (*):</label>
                         <input asp-for="DiemDen" class="form-control" />
                         <span asp-validation-for="DiemDen" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="DiemDon"> (*):</label>
+                        <label asp-for="DiemDon">Điểm đón (*):</label>
                         <input asp-for="DiemDon" class="form-control" />
                         <span asp-validation-for="DiemDen" class="text-danger"></span>
                     </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                    <button id="submit" type="button" class="btn btn-primary" data-add="modal">Tính đơn giá</button>
+                    <button id="submit" type="button" class="btn btn-primary" onclick="getDistance()" data-add="modal">Tính đơn giá</button>
                 </div>
             </div>
         </div>

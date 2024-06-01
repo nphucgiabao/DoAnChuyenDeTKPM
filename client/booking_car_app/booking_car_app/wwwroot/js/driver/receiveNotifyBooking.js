@@ -40,7 +40,7 @@ function renderNotifyHtml(notify) {
 
 async function receive(idBooking) {
     let header = createHeader($('form'));
-    let result = await postData('/Driver/Booking/ReceiveBooking', { idBooking }, header);
+    let result = await postData('/Driver/Booking/UpdateStatusBooking', { idBooking, status: 2 }, header);
     console.log(result);
     if (result.success) {
         connection.invoke("RefreshBroadcast").catch(function (err) {

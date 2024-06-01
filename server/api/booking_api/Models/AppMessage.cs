@@ -13,5 +13,7 @@ namespace booking_api.Models
            => $"Đã có lỗi hệ thống xảy ra. Vui lòng kiểm tra lại.";
         public static string Success(string note)
            => $"{note} thành công.";
+        public static string NotExistedById(string title, Guid id)
+        => $"{title} với id '{id}' chưa tồn tại trên hệ thống. Vui lòng kiểm tra lại dữ liệu.";
     }
 }

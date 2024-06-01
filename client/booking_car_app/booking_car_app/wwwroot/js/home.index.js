@@ -22,6 +22,7 @@ connection.start().then(function () {
 });
 
 connection.on("ReceiveBooking", function (data) {
+    console.log(data);
     if (data) {
         if (data.avartar) {
             $('#avartar').attr('src', `/img/${data.avartar}`);
@@ -136,9 +137,12 @@ async function search(query) {
 
 function sendMessage() {
     let message = $('#chat').val();
-    connection.invoke("SendMessageToRoom", idBooking, message).catch(function (err) {
+    connection.invoke("SendMessageToRoom", idBooking, message).then(function () {
+        $('#chat').val('');
+    }).catch(function (err) {
         return console.log(err.toString());
     });
+    
     //$('#chatmessage').append(`<li>${message}</li>`);
 }
 
@@ -152,8 +156,7 @@ $(document).ready(function () {
             model['UnitPrice'] = unitPrice;
             postData('/Home/Booking', JSON.stringify(model), headers, 'application/json; charset=utf-8')
                 .then((response) => {                    
-                    if (response.success) {
-                        console.log(response);
+                    if (response.success) {                       
                         let data = JSON.parse(response.data);
                         idBooking = data.id;
                         $('#modal-placeholder').find('.modal').modal(options);
@@ -180,6 +183,7 @@ connection.on('UpdateLocationDriver', (data) => {
 });
 
 connection.on('UpdateStatusBooking', (data) => {
+    console.log(data);
     if (data == 3) {
         Swal.fire({
             text: 'Bắt đầu chuyến đi, Chúc bạn có chuyến đi vui vẻ',

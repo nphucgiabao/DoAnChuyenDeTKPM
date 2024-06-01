@@ -1,6 +1,8 @@
 ﻿using booking_api.Entities;
 using booking_api.Features.Bookings.Commands;
 using booking_api.Features.Bookings.Models.Responses;
+using booking_api.Features.Bookings.Queries;
+using booking_api.Features.Drivers.Queries;
 using booking_api.Hubs;
 using booking_api.Infrastructure.Repository.Entities;
 using booking_api.Infrastructure.Repository.Repositories;
@@ -47,66 +49,84 @@ namespace booking_api.Controllers
                 await _broadcastHub.Clients.All.SendAsync("BroadcastBooking", JsonConvert.SerializeObject(result.Data));
             return Ok(result);
         }
-        [HttpPost]
-        public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)
-        {
-            try
-            {
-                var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
-                //booking.Id = info.Id.Value;
-                booking.DriverId = info.DriverId;
-                booking.Status = 2;
-                _uniOfWork.bookingRepository.Update(booking);
-                _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
-                {
-                    Id = Guid.NewGuid(),
-                    BookingId = booking.Id,
-                    Status = 2,
-                    Time = DateTime.Now
-                });
-                var result = await _uniOfWork.Commit();
-                if (result > 0)
-                {
-                    var driver = await _uniOfWork.driverRepository.GetAsync(x => x.Id == Guid.Parse(info.DriverId));
-                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", driver);
-                }
-                return Ok(new ResponseModel() { Success = result > 0 });
-            }
-            catch(Exception ex)
-            {
-                return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> ReceiveBooking([FromBody] BookingInfo info)
+        //{
+        //    try
+        //    {
+        //        var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
+        //        //booking.Id = info.Id.Value;
+        //        booking.DriverId = info.DriverId;
+        //        booking.Status = 2;
+        //        _uniOfWork.bookingRepository.Update(booking);
+        //        _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+        //        {
+        //            Id = Guid.NewGuid(),
+        //            BookingId = booking.Id,
+        //            Status = 2,
+        //            Time = DateTime.Now
+        //        });
+        //        var result = await _uniOfWork.Commit();
+        //        if (result > 0)
+        //        {
+        //            var driver = await _uniOfWork.driverRepository.GetAsync(x => x.Id == Guid.Parse(info.DriverId));
+        //            await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("ReceiveBooking", driver);
+        //        }
+        //        return Ok(new ResponseModel() { Success = result > 0 });
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
+        //    }
            
-        }
+        //}
 
         [HttpPost]
         public async Task<IActionResult> UpdateStatusBooking([FromBody] BookingInfo info)
         {
-            try
+            var request = new UpdateBookingCommandRequest();
+            request.Id = info.Id;
+            request.DriverId = info.DriverId;
+            request.Status = info.Status;
+            var result = await _mediator.Send(request);
+            if (result.Data)
             {
-                var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
-                //booking.Id = info.Id.Value;
-                //booking.DriverId = info.DriverId;
-                booking.Status = info.Status;
-                _uniOfWork.bookingRepository.Update(booking);
-                _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+                if(info.Status == 2)
                 {
-                    Id = Guid.NewGuid(),
-                    BookingId = booking.Id,
-                    Status = info.Status,
-                    Time = DateTime.Now
-                });
-                var result = await _uniOfWork.Commit();
-                if (result > 0)
-                {         
-                    await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);           
+                    var requestDriver = new GetDriverByIdQueryRequest() { Id = Guid.Parse(info.DriverId) };
+                    var driver = await _mediator.Send(requestDriver);
+                    await _broadcastHub.Clients.Groups(info.Id.ToString()).SendAsync("ReceiveBooking", driver.Data);
                 }
-                return Ok(new ResponseModel() { Success = result > 0 });
+                else
+                    await _broadcastHub.Clients.Groups(info.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);
             }
-            catch (Exception ex)
-            {
-                return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
-            }
+                
+            return Ok(result);
+            //try
+            //{
+            //    var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
+            //    //booking.Id = info.Id.Value;
+            //    //booking.DriverId = info.DriverId;
+            //    booking.Status = info.Status;
+            //    _uniOfWork.bookingRepository.Update(booking);
+            //    _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        BookingId = booking.Id,
+            //        Status = info.Status,
+            //        Time = DateTime.Now
+            //    });
+            //    var result = await _uniOfWork.Commit();
+            //    if (result > 0)
+            //    {         
+            //        await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);           
+            //    }
+            //    return Ok(new ResponseModel() { Success = result > 0 });
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
+            //}
 
         }
 
@@ -123,24 +143,24 @@ namespace booking_api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetBookingById(Guid id)
+        public async Task<ActionResult<Response<BookingModelResponse>>> GetBookingById(Guid id)
         {
-            var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == id);
-            return Ok(new ResponseModel() { Data = booking });
+            //var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == id);
+            return Ok(await _mediator.Send(new GetBookingByIdQueryRequest() { Id = id }));
         }
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetBookingByUserId(string id)
+        public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetBookingByUserId(string id)
         {
-            var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.UserId == id);
-            return Ok(new ResponseModel() { Data = booking });
+            //var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.UserId == id);
+            return Ok(await _mediator.Send(new GetBookingByUserIdQueryRequest() { UserId = id}));
         }
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetBookingByDriverId(string id)
+        public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetBookingByDriverId(string id)
         {
-            var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.DriverId == id);
-            return Ok(new ResponseModel() { Data = booking });
+            //var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.DriverId == id);
+            return Ok(await _mediator.Send(new GetBookingByDriverIdQueryRequest() { DriverId = id }));
         }
     }
 }

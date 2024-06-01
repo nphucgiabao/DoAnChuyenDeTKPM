@@ -151,10 +151,21 @@ function addEdit(form) {
                 console.log(response);
                 if (response.success) {
                     placeholderElement.find('.modal').modal('hide');
-                    alert(response.message);
+                    //alert(response.message);
                     dataTable.ajax.reload();
+                    Swal.fire({
+                        text: 'Lưu dữ liệu thành công',
+                        icon: 'success',
+                        timer: 3000
+                    });
+                    
                 }
                 else {
+                    Swal.fire({
+                        text: 'Lưu dữ liệu thất bại!',
+                        icon: 'error',
+                        timer: 3000
+                    });
                     console.log(response.message);
                 }
             }).catch(err => console.log(err));
@@ -173,9 +184,19 @@ function createAccount(form) {
                 if (response.success) {
                     placeholderElement.find('.modal').modal('hide');
                     alert(response.message);
+                    Swal.fire({
+                        text: response.message,
+                        icon: 'success',
+                        timer: 3000
+                    });
                     //dataTable.ajax.reload();
                 }
                 else {
+                    Swal.fire({
+                        text: response.message,
+                        icon: 'error',
+                        timer: 3000
+                    });
                     console.log(response.message);
                 }
             }).catch(err => console.log(err));

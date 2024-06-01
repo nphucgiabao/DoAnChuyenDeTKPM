@@ -98,9 +98,9 @@ navigator.geolocation.watchPosition((pos) => {
 
 function sendMessage() {
     let message = $('#chat').val();
-    connection.invoke("SendMessageToRoom", idBooking, message).catch(function (err) {
-        return console.log(err.toString());
-    });
+    connection.invoke("SendMessageToRoom", idBooking, message)
+        .then(function () {$('#chat').val('');})
+        .catch(function (err) {return console.log(err.toString());});
     //$('#chatmessage').append(`<li>${message}</li>`);
 }
 

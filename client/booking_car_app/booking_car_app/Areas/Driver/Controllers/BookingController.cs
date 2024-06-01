@@ -26,17 +26,18 @@ namespace booking_car_app.Areas.Driver.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReceiveBooking(Guid idBooking)
-        {
-            var result = await _bookingServices.ReceiveBooking(new Entities.BookingInfo()
-            {
-                Id = idBooking,
-                DriverId = User.FindFirst("OId")?.Value
-            });                         
-            return Json(new { result.Success, data = idBooking, result.Message });
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ReceiveBooking(Guid idBooking)
+        //{
+        //    var result = await _bookingServices.ReceiveBooking(new Entities.BookingInfo()
+        //    {
+        //        Id = idBooking,
+        //        DriverId = User.FindFirst("OId")?.Value,
+        //        Status = 2
+        //    });                         
+        //    return Json(new { result.Success, data = idBooking, result.Message });
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,6 +46,7 @@ namespace booking_car_app.Areas.Driver.Controllers
             var result = await _bookingServices.UpdateStatusBooking(new Entities.BookingInfo()
             {
                 Id = idBooking,
+                DriverId = User.FindFirst("OId")?.Value,
                 Status = status
             });
             return Json(new { result.Success, data = idBooking, result.Message });

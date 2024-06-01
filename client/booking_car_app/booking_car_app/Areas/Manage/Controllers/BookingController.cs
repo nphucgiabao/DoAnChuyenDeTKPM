@@ -54,7 +54,7 @@ namespace booking_car_app.Areas.Manage.Controllers
         [HttpGet]
         public IActionResult AddBooking()
         {
-            return View();
+            return View(new BookingViewModel());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
