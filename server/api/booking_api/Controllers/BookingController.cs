@@ -100,34 +100,7 @@ namespace booking_api.Controllers
                 else
                     await _broadcastHub.Clients.Groups(info.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);
             }
-                
             return Ok(result);
-            //try
-            //{
-            //    var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == info.Id);
-            //    //booking.Id = info.Id.Value;
-            //    //booking.DriverId = info.DriverId;
-            //    booking.Status = info.Status;
-            //    _uniOfWork.bookingRepository.Update(booking);
-            //    _uniOfWork.bookingHistoryRepository.Insert(new BookingHistory()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        BookingId = booking.Id,
-            //        Status = info.Status,
-            //        Time = DateTime.Now
-            //    });
-            //    var result = await _uniOfWork.Commit();
-            //    if (result > 0)
-            //    {         
-            //        await _broadcastHub.Clients.Groups(booking.Id.ToString()).SendAsync("UpdateStatusBooking", info.Status);           
-            //    }
-            //    return Ok(new ResponseModel() { Success = result > 0 });
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Ok(new ResponseModel() { Success = false, Message = ex.ToString() });
-            //}
-
         }
 
         [HttpGet]
@@ -145,21 +118,18 @@ namespace booking_api.Controllers
         [Route("{id}")]
         public async Task<ActionResult<Response<BookingModelResponse>>> GetBookingById(Guid id)
         {
-            //var booking = await _uniOfWork.bookingRepository.GetAsync(x => x.Id == id);
             return Ok(await _mediator.Send(new GetBookingByIdQueryRequest() { Id = id }));
         }
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetBookingByUserId(string id)
         {
-            //var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.UserId == id);
             return Ok(await _mediator.Send(new GetBookingByUserIdQueryRequest() { UserId = id}));
         }
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetBookingByDriverId(string id)
         {
-            //var booking = await _uniOfWork.bookingRepository.GetAllAsync(x => x.DriverId == id);
             return Ok(await _mediator.Send(new GetBookingByDriverIdQueryRequest() { DriverId = id }));
         }
     }

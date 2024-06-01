@@ -182,8 +182,7 @@ function createAccount(form) {
             .then((response) => {
                 console.log(response);
                 if (response.success) {
-                    placeholderElement.find('.modal').modal('hide');
-                    alert(response.message);
+                    placeholderElement.find('.modal').modal('hide');                   
                     Swal.fire({
                         text: response.message,
                         icon: 'success',
@@ -237,7 +236,7 @@ async function uploadImage(fileUpload) {
         let ext = fileUpload.files[0].name.split('.').pop();
         let fileExtension = ['png', 'jpg', 'jpeg'];
         if ($.inArray(ext.toLowerCase(), fileExtension) == -1) {
-            toastr.warning("File không hợp lệ!");
+            alert("File không hợp lệ!");
             return false;
         }
         //fileUpload.files[0].name = `file_anh_${fileUpload.files[0].name}`;

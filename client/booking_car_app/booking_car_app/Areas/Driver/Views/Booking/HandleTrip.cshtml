@@ -10,6 +10,8 @@
     <form onsubmit="return false;" asp-antiforgery="true">
         <h1 class="display-4">Thực hiện chuyến đi</h1>
         <p>Tên khách hàng: @Model.Name - Số điện thoại: @Model.Phone - Số tiền: @string.Format("{0:#,##0}đ", Model.UnitPrice)</p>
+        <p>Điểm đón: @Model.DiemDon</p>
+        <p>Điểm đến: @Model.DiemDen</p>
         <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
         <button id="gotrip" class="btn btn-info" onclick="goTrip('@Model.Id')">Đã đón khách</button>
         <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>

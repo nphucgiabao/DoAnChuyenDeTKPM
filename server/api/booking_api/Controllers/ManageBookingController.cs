@@ -27,7 +27,6 @@ namespace booking_api.Controllers
         [HttpGet]
         public async Task<ActionResult<Response<List<BookingModelResponse>>>> GetAll()
         {
-            //return Ok(new ResponseModel() { Success = true, Data = await _uniOfWork.bookingRepository.GetAllAsync() });
             return Ok(await _mediator.Send(new GetAllBookingQueryRequest()));
         }
         [HttpGet]

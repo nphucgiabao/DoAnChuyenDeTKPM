@@ -7,6 +7,7 @@ var options = {
     'focus': false
 };
 let unitPrice;
+
 const control = L.Routing.control({
     waypoints: [],
     router: L.Routing.osrmv1({
@@ -36,14 +37,15 @@ async function search(query) {
 }
 
 async function getDistance() {
+    $('#creatPrice').html('<div class="spinner-border text-light"></div>');
     const startLocation = await search(document.getElementById('DiemDon').value);
     const endLocation = await search(document.getElementById('DiemDen').value);
     if (startLocation && endLocation) {
         // Clear existing markers and waypoints
         control.setWaypoints([L.latLng(startLocation), L.latLng(endLocation)]);
         // Center the map to the route
-        const bounds = L.latLngBounds([startLocation, endLocation]);
-        map.fitBounds(bounds);
+        //const bounds = L.latLngBounds([startLocation, endLocation]);
+        //map.fitBounds(bounds);
     }
 }
 
@@ -60,9 +62,9 @@ control.on('routesfound', async function (e) {
     unitPrice = data.price;
     let price = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     //$('#UnitPrice').val(data.price);
-    $('#submit').text('Tạo đơn');
-    $('#submit').attr('type', 'submit');
-    $('#price').text(`${price}đ`);
+    $('#submit').css('display', 'block');
+    $('#creatPrice').css('display', 'none');
+    $('#price').text(`Đơn giá: ${price}đ`);
 });
 
 $(document).ready(function () {
@@ -246,14 +248,14 @@ $(document).ajaxComplete(function () {
     $('#smartwizard').find('.wizard-progressbar').css({ left: left + '%', right: left + '%' });
 
     //enable wizard
-    var selectedStep = 0;
+    var selectedStep = stepCount - 1;
     $('#smartwizard').smartWizard({
         theme: 'circles',
         useURLhash: false,
         showStepURLhash: false,
         autoAdjustHeight: true,
         transitionSpeed: 150,
-        //selected: selectedStep,
+        selected: selectedStep,
         toolbarSettings: {
             showNextButton: false, // show/hide a Next button
             showPreviousButton: false, // show/hide a Previous button
@@ -267,103 +269,18 @@ function addEdit(form) {
     if ($(form).valid()) {
         let headers = createHeader(form);
         let model = $(form).serializeJSON();
-        model['TypeCar'] = 1;
-        postData('/Manage/Driver/AddEdit', JSON.stringify(model), headers, 'application/json; charset=utf-8')
-            .then((response) => {
-                console.log(response);
-                if (response.success) {
-                    placeholderElement.find('.modal').modal('hide');
-                    alert(response.message);
-                    dataTable.ajax.reload();
-                }
-                else {
-                    console.log(response.message);
-                }
-            }).catch(err => console.log(err));
-    }
-    return false;
-}
-
-function createAccount(form) {
-    $.validator.unobtrusive.parse(form);
-    if ($(form).valid()) {
-        let headers = createHeader(form);
-        let model = $(form).serializeJSON();
-        postData('/Manage/Driver/CreateAccount', JSON.stringify(model), headers, 'application/json; charset=utf-8')
-            .then((response) => {
-                console.log(response);
-                if (response.success) {
-                    placeholderElement.find('.modal').modal('hide');
-                    alert(response.message);
-                    //dataTable.ajax.reload();
-                }
-                else {
-                    console.log(response.message);
-                }
-            }).catch(err => console.log(err));
-    }
-    return false;
-}
-
-const postFile = (fileData, form) => {
-    var token = $('input[name="__RequestVerificationToken"]', form).val();
-    var headers = {};
-    headers['X-XSRF-Token'] = token;
-    var formData = new FormData();
-    formData.append('file', fileData);
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/File/Upload",
-            headers: headers,
-            data: formData,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (response) {
-                resolve(response.fileName);
-            },
-            error: function (jqXHR, exception, error) {
-                alert(error + ':' + jqXHR.responseText);
-                reject(error + ':' + jqXHR.responseText);
-            }
-        });
-    });
-}
-
-async function uploadImage(fileUpload) {
-    if (fileUpload.files && fileUpload.files[0]) {
-        let ext = fileUpload.files[0].name.split('.').pop();
-        let fileExtension = ['png', 'jpg', 'jpeg'];
-        if ($.inArray(ext.toLowerCase(), fileExtension) == -1) {
-            toastr.warning("File không hợp lệ!");
-            return false;
-        }
-        //fileUpload.files[0].name = `file_anh_${fileUpload.files[0].name}`;
-        let fileName = await postFile(fileUpload.files[0], $('form'));
-        //let d = new Date();
-        $('#driverImage').attr('src', `/img/${fileName}`);
-        $('#driverImage').css('display', 'block');
-        $('#Avartar').val(fileName);
-
-        //$(fileUpload).css('display', 'none');
-    }
-}
-
-function addEdit(form) {
-    $.validator.unobtrusive.parse(form);
-    if ($(form).valid()) {
-        let headers = createHeader(form);
-        let model = $(form).serializeJSON();
         model['UnitPrice'] = unitPrice;
         postData('/Manage/Booking/AddBooking', JSON.stringify(model), headers, 'application/json; charset=utf-8')
             .then((response) => {
-                if (response.success) {
-                    console.log(response);
-                    let data = JSON.parse(response.data);                   
-                    $('#modal-placeholder').find('.modal').modal(options);                 
+                console.log(response);
+                if (response.success) {                    
+                    $('#modal-placeholder').find('.modal').modal(options);
+                    Swal.fire({
+                        text: response.message,
+                        icon: 'success',
+                        timer: 3000
+                    });
+                    dataTable.ajax.reload();
                 }
                 else {
 

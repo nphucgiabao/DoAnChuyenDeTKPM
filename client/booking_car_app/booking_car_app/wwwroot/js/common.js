@@ -24,7 +24,7 @@ function postData(url, data, headers, contentType = 'application/x-www-form-urle
                 resolve(response);
             },
             error: function (jqXHR, exception, error) {
-                toastr.error(error + ': ' + jqXHR.responseText);
+                console.log(error + ': ' + jqXHR.responseText);
                 reject(error + ': ' + jqXHR.responseText);
             }
         });

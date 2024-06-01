@@ -13,6 +13,7 @@ namespace booking_car_app
             CreateMap<Models.RegisterViewModel, Entities.User>().ReverseMap();
             CreateMap<Models.DriverViewModel, Entities.Driver>().ReverseMap();
             CreateMap<Areas.Manage.Models.AccountViewModel, Entities.User>().ReverseMap();
+            CreateMap<Areas.Manage.Models.BookingViewModel, Entities.BookingInfo>().ReverseMap();
         }
     }
 }
