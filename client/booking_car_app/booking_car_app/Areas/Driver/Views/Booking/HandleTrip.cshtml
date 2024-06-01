@@ -13,8 +13,14 @@
         <p>Điểm đón: @Model.DiemDon</p>
         <p>Điểm đến: @Model.DiemDen</p>
         <button class="btn btn-primary" data-toggle="modal" data-target="#chatbox">Gửi tin nhắn</button>
-        <button id="gotrip" class="btn btn-info" onclick="goTrip('@Model.Id')">Đã đón khách</button>
-        <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>
+        @if (Model.Status == 2)
+        {
+            <button id="gotrip" class="btn btn-info" onclick="goTrip('@Model.Id')">Đã đón khách</button>
+        }
+        @if (Model.Status == 3)
+        {
+            <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>
+        }
     </form>    
 </div>
 <div class="row mt-2">

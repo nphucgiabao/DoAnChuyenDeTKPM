@@ -61,14 +61,15 @@ namespace user_api.Controllers
                         _logger.LogInformation("User created a new account with password.");
                         return Ok(new ResponseModel { Success = true, Message = AppMessage.Save.Success });
                     }
+                    return Ok(new ResponseModel { Success = false, Message = "Tài khoản đã tồn tại!" });
                 }
                 catch(Exception ex)
                 {
-                    return BadRequest(new ResponseModel { Success = false, Message = ex.ToString() });
+                    return Ok(new ResponseModel { Success = false, Message = ex.Message });
                 }
                
             }
-            return BadRequest(new ResponseModel { Success = false, Message = string.Join("; ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)) });
+            return Ok(new ResponseModel { Success = false, Message = string.Join("; ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)) });
         }
         [IdentityServerAuthorize]
         [HttpPost]
