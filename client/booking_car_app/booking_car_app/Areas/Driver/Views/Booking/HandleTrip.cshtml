@@ -16,11 +16,8 @@
         @if (Model.Status == 2)
         {
             <button id="gotrip" class="btn btn-info" onclick="goTrip('@Model.Id')">Đã đón khách</button>
-        }
-        @if (Model.Status == 3)
-        {
-            <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>
-        }
+        }           
+    <button id="hoanthanh" style="display: none;" class="btn btn-success" onclick="finish('@Model.Id')">Hoàn thành</button>
     </form>    
 </div>
 <div class="row mt-2">
