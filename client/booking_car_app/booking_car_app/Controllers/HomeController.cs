@@ -138,12 +138,21 @@ namespace booking_car_app.Controllers
         {
             return View();
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> DonHang()
         {
             var result = await _bookingServices.GetBookingByUserId(User.FindFirst("Id")?.Value);
             var data = JsonConvert.DeserializeObject<List<BookingInfo>>(result.Data.ToString());
             return View(data);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancel(Guid id)
+        {
+            var result = await _bookingServices.CancelBooking(id);
+            return Json(new { data = result });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

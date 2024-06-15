@@ -74,6 +74,12 @@ namespace booking_car_app.Areas.Manage.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            return Json(await _driverServices.Delete(id));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAccount([FromBody]AccountViewModel model)
         {
             var user = _mapper.Map<Entities.User>(model);

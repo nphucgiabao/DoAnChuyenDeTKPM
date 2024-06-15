@@ -14,6 +14,12 @@ namespace booking_car_app.ApiServices.Booking
     {
         public BookingService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor) :
             base(httpClientFactory, httpContextAccessor){ }
+
+        public async Task<ResponseModel> CancelBooking(Guid id)
+        {
+            return await DeleteRequest($"/user/CancelBooking/{id}");
+        }
+
         public async Task<ResponseModel> FindDriver(BookingInfo bookingInfo)
         {
             return await PostRequest<BookingInfo>("/user/booking", bookingInfo);

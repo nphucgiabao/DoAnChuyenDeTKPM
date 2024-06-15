@@ -102,6 +102,11 @@ namespace booking_api.Controllers
             }
             return Ok(result);
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Response<bool>>> CancelBooking(Guid id)
+        {
+            return Ok(await _mediator.Send(new DeleteBookingCommandRequest() { Id = id }));
+        }
 
         [HttpGet]
         [Route("{distance}/{idType}")]

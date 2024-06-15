@@ -29,6 +29,7 @@
             </div>
 
             <a id="routeButton" class="btn btn-primary">Tìm....</a>
+            <button id="btnGo" class='btn btn-primary' type='submit' style="display:none;"></button>
         </form>
         <div id="driver" class="card" style="display: none;">
             <img id="avartar" class="card-img-top center" style="width:30%;" src="~/img/avartar.jpg" alt="Card image">
@@ -52,8 +53,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center">
-                    <img src="~/img/loading.gif" class="w-50" />
-                    <h3>Đang tìm tài xế</h3>
+                    <form id="frmWaiting" onsubmit="return false" asp-antiforgery="true">
+                        <img src="~/img/loading.gif" class="w-50" />
+                        <h3>Đang tìm tài xế</h3>                        
+                        <a class="btn btn-sm btn-warning" onclick="cancelBooking()">Hủy</a>
+                    </form>                    
                 </div>
             </div>
         </div>

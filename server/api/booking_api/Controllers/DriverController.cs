@@ -24,13 +24,11 @@ namespace booking_api.Controllers
         {
             _mediator = mediator;
         }
-
         [HttpGet]
         public async Task<ActionResult<Response<List<DriverModelResponse>>>> GetAll()
         {
             return Ok(await _mediator.Send(new GetAllDriverQueryRequest()));
         }
-
         [HttpPost]
         public async Task<IActionResult> AddEdit([FromBody]Driver info)
         {            
@@ -56,7 +54,9 @@ namespace booking_api.Controllers
                 return Ok(await _mediator.Send(request));
             }               
         }
-
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Response<bool>>> Delete(Guid id)
+            => Ok(await _mediator.Send(new DeleteDriverCommandRequest() { Id = id }));
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Response<DriverModelResponse>>> GetById(Guid id)

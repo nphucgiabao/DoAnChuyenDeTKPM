@@ -9,6 +9,7 @@ namespace booking_car_app.ApiServices.Drivers
     {
         Task<ResponseModel> GetAll();
         Task<ResponseModel> GetById(Guid id);
+        Task<ResponseModel> Delete(Guid id);
         Task<ResponseModel> AddEdit(Driver entity);
     }
 }

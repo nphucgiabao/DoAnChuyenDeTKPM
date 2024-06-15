@@ -93,8 +93,11 @@ control.on('routesfound', async function (e) {
     unitPrice = data.price;
     let price = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     //$('#UnitPrice').val(data.price);
-    $('#routeButton').remove();
-    $('#frmBooking').append(`<button class='btn btn-primary' type='submit'>Đặt chuyến  ->  ${price}đ</button>`)
+    //$('#routeButton').remove();
+    $('#routeButton').css('display', 'none');
+    $('#btnGo').text(`Đặt chuyến  ->  ${price}đ`);
+    $('#btnGo').css('display', 'block');
+    //$('#frmBooking').append(`<button class='btn btn-primary' type='submit'>Đặt chuyến  ->  ${price}đ</button>`)
 });
 
 //$(document).ready(function () {
@@ -198,6 +201,27 @@ connection.on('UpdateStatusBooking', (data) => {
         window.location.replace(`/Home/Finish`);
     }
 });
+
+async function cancelBooking() {
+    let headers = createHeader($('#frmWaiting'));
+    let result = await postData('/Home/Cancel', { id: idBooking }, headers);
+    console.log(result);
+    if (result.data.success) {
+        connection.invoke("RefreshBroadcast").catch(function (err) {
+            return console.log(err.toString());
+        });
+        $('#modal-placeholder').find('.modal').modal('hide');
+        $('#routeButton').css('display', 'block');
+        $('#btnGo').text('');
+        $('#btnGo').css('display', 'none');
+        Swal.fire({
+            text: 'Đã hủy',
+            icon: 'success',
+            timer: 2000
+        });
+    } else
+        console.log(result.data.message);
+}
 
 function submit(form) {
     console.log('submit')

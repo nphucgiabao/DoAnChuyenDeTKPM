@@ -124,6 +124,22 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/Booking/CancelBooking/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "44312"
+        }
+      ],
+      "UpstreamPathTemplate": "/user/CancelBooking/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey"
+
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/Driver/GetAll",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -166,6 +182,22 @@
       ],
       "UpstreamPathTemplate": "/driver/addEdit",
       "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey"
+
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Driver/Delete/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "44312"
+        }
+      ],
+      "UpstreamPathTemplate": "/driver/Delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "IdentityApiKey"
 

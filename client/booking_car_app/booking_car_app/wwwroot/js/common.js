@@ -48,3 +48,20 @@ function getData(url, data) {
         });
     });
 }
+
+
+function sweetAlert(contentValue, content = 'text') {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            [content]: contentValue,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            resolve(result.value);
+        });
+    });
+}

@@ -1,4 +1,5 @@
-﻿let dataTable;
+﻿
+let dataTable;
 let tableId = '#dataTable';
 var options = {
     'backdrop': 'static',
@@ -41,7 +42,9 @@ $(document).ready(function () {
             {
                 "data": "id", "className": "text-center ", "orderable": false, "targets": 3,
                 "render": function (data, type, row, meta) {
-                    return `<a class='btn btn-info btn-sm text-white' onclick=showPopup('/Manage/Driver/AddEdit?id=${data}')>Chỉnh sửa</a><a class='btn btn-primary btn-sm text-white' style='margin-left:5px' onclick=showPopup('/Manage/Driver/CreateAccount?id=${data}')>Tạo tài khoản</a>`;
+                    return `<a class='btn btn-info btn-sm text-white' onclick=showPopup('/Manage/Driver/AddEdit?id=${data}')>Chỉnh sửa</a>
+                            <a class='btn btn-primary btn-sm text-white' style='margin-left:5px' onclick=showPopup('/Manage/Driver/CreateAccount?id=${data}')>Tạo tài khoản</a>
+                            <a class='btn btn-danger btn-sm text-white' style='margin-left:5px' onclick=deleteDriver('${data}')>Xóa</a>`;
                 }
             }
             
@@ -171,6 +174,27 @@ function addEdit(form) {
             }).catch(err => console.log(err));
     }
     return false;
+}
+
+async function deleteDriver(id) {
+    let confirm = await sweetAlert('Có chắc xóa tài xế này?');
+    if (confirm) {
+        let headers = createHeader($('form'));
+        let result = await postData('/Manage/Driver/Delete', { id }, headers).catch(err => console.log(err));
+        if (result.success) {
+            dataTable.ajax.reload();
+            Swal.fire({
+                text: result.message,
+                icon: 'success',
+                timer: 3000
+            });
+        } else
+            Swal.fire({
+                text: result.message,
+                icon: 'error',
+                timer: 3000
+            });
+    }
 }
 
 function createAccount(form) {

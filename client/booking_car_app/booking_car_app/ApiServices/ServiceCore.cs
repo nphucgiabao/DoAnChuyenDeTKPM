@@ -104,5 +104,29 @@ namespace booking_car_app.ApiServices
             }
             
         }
+        protected async Task<ResponseModel> DeleteRequest(string url)
+        {
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient("BookingCarAPIClient");
+
+                var request = new HttpRequestMessage(HttpMethod.Delete, url);
+
+                //request.Content = new StringContent(JsonConvert.SerializeObject(new { id = key }));
+                var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<ResponseModel>(result);
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                return new ResponseModel { Success = false, Message = ex.ToString() };
+            }
+        }
     }
 }

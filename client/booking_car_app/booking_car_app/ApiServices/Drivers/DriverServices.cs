@@ -19,6 +19,11 @@ namespace booking_car_app.ApiServices.Drivers
             return await PostRequest<Driver>("/driver/addEdit", entity);
         }
 
+        public async Task<ResponseModel> Delete(Guid id)
+        {
+            return await DeleteRequest($"/driver/Delete/{id}");
+        }
+
         public async Task<ResponseModel> GetAll()
         {
             return await GetRequest("/driver/getAll");
